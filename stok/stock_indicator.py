@@ -1,0 +1,14 @@
+import numpy as np
+
+def sma(kline, *timeperiod):
+    """
+    :param kline:
+    :param timeperiod:
+    :return:
+    """
+    close = kline[:, 5].astype(np.float)
+    return [_sma(close, timeperiod=i) for i in timeperiod]
+
+
+def _sma(nparr, timeperiod):
+    return np.convolve(np.ones(timeperiod) / timeperiod,  nparr)[timeperiod - 1 : -timeperiod + 1]
