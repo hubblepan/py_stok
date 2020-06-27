@@ -40,7 +40,7 @@ def d_week(code):
     data = api('weekly', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200616',
+        'end_date': '20200624',
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -50,7 +50,7 @@ def d_daily(code):
     data = api('daily', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200616',
+        'end_date': '20200624',
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -61,20 +61,20 @@ def test():
 
 
 def sync_week():
-    # code_list = get_stock('sha')
-    # for code in code_list:
-    #     try:
-    #         df = ts.pro_bar(ts_code=code + '.SH', adj='qfq', start_date='20180101', end_date='20200618', freq='W')
-    #         data = df.values
-    #         np.save('data/week/{}'.format(code), data)
-    #         time.sleep(0.2)
-    #     except Exception as e:
-    #         print(e)
+    code_list = get_stock('sha')
+    for code in code_list:
+        try:
+            df = ts.pro_bar(ts_code=code + '.SH', adj='qfq', start_date='20180101', end_date='20200624', freq='W')
+            data = df.values
+            np.save('data/week/{}'.format(code), data)
+            time.sleep(0.2)
+        except Exception as e:
+            print(e)
 
     code_list = get_stock('sza')
     for code in code_list:
         try:
-            df = ts.pro_bar(ts_code=code + '.SZ', adj='qfq', start_date='20180101', end_date='20200618', freq='W')
+            df = ts.pro_bar(ts_code=code + '.SZ', adj='qfq', start_date='20180101', end_date='20200624', freq='W')
             data = df.values
             np.save('data/week/{}'.format(code), data)
             time.sleep(0.2)
@@ -129,22 +129,52 @@ def filter_amount(kline, amount):
     pass
 
 
+# 60日 week line
+filter_stk1_result = []
+
+
+def filter_stk1():
+    if len(filter_stk1_result) != 0:
+        return filter_stk1_result
+    all_stk = get_stock('sha') + get_stock('sza')
+    result = []
+    for code in all_stk:
+        kline = np.load('data/week/{}'.format(code + '.npy'), allow_pickle=True)
+        if kline.shape[0] < 65:
+            continue
+        sma_close_5, sma_close_10, sma_close_60 = indicator.sma_week(kline, 5, 10, 60)
+        if sma_close_5[0] > sma_close_60[0] and sma_close_10[0] > sma_close_60[0]:
+            print(code)
+            result.append(code)
+    return result
+
+
 def analysis_daily(position):
-    code_list = get_stock('sha')
+    # code_list = get_stock('sha') + get_stock('sza')
+    code_list = filter_stk1()
+    result = []
     for code in code_list:
         kline = np.load('data/daily/{}'.format(code + '.npy'))
         if kline.shape[0] < 120:
             continue
-        _open = kline[:2].astype(np.float)[:100]
-        high = kline[:3].astype(np.float)[:100]
-        low = kline[:4].astype(np.float)[:100]
-        close = kline[:5].astype(np.float)[:100]
-        pre_close = kline[:6].astype(np.float)[:100]
-        vol = kline[:9].astype(np.float)[:100]
-        amount = kline[:10].astype(np.float)*1000[:100]
+        s_open = kline[:, 2].astype(np.float)[:100]
+        s_high = kline[:, 3].astype(np.float)[:100]
+        s_low = kline[:, 4].astype(np.float)[:100]
+        s_close = kline[:, 5].astype(np.float)[:100]
+        s_pre_close = kline[:, 6].astype(np.float)[:100]
+        s_vol = kline[:, 9].astype(np.float)[:100]
+        s_amount = (kline[:, 10].astype(np.float)*1000)[:100]
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
-        if amount[position] > 1 * 100000000:
-            pass
+        if s_close[position] > s_open[position] > 0 and s_amount[position] > 10000 * 10000:
+            s_zf = (s_high - s_low) / s_low * 100
+            s_entity = (s_close - s_open) / s_open * 100
+            s_max = (s_close - s_low) / s_low * 100
+            s_down = (s_pre_close - s_low) / s_pre_close * 100
+            if s_zf[position] > 5 and s_max[position] > 3:
+                if s_low[position] < sma_close_5[position] < s_high[position] or s_low[position] < sma_close_10[position] < s_high[position] or s_low[position] < sma_close_20[position] < s_high[position]:
+                    print(code)
+                    result.append(code)
+    return result
 
 
 def analysis_week(position):
@@ -168,6 +198,14 @@ if __name__ == '__main__':
     # test()
     # test2()
     # sync_daily()
-    sync_week()
+    # sync_week()
+    # filter_stk1()
+    result = analysis_daily(0) + analysis_daily(1) + analysis_daily(2) + analysis_daily(3) + analysis_daily(4)
+    result_f = []
+    [(result_f.append(x)) for x in result if x not in result_f]
+    with open('tod.txt', mode='w') as f:
+        for item in result_f:
+            f.write(item)
+            f.write('\n')
 
 
