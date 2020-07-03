@@ -121,20 +121,17 @@ def data_to_tdx_phone(**kwargs):
     os.system(cmd)
 
 
-
-if __name__=='__main__':
-    pass
-    # #data to phone
+def load_stock_code_list(source):
     stock_code_list = []
-    with open('tod.txt', 'r', encoding='utf-8') as f:
+    with open(source, 'r', encoding='utf-8') as f:
         lines = f.readlines()
         for line in lines:
             if not line.startswith("#") and not '\n' == line:
                 data = line.strip('\n').split(',')
                 stock_code_list.append(data[0])
-                # if data[0].startswith('6'):
-                #     stock_code_list.append('1' + data[0])
-                # else:
-                #     stock_code_list.append('0' + data[0])
-    print(stock_code_list)
-    data_to_tdx_phone(zxg=stock_code_list)
+    return stock_code_list
+
+
+if __name__=='__main__':
+    # #data to phone
+    data_to_tdx_phone(S03=load_stock_code_list('lt.txt'))

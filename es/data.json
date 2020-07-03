@@ -1,0 +1,110 @@
+[
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': '1',
+        '_score': 1.0,
+        '_source': {
+          'id': '1',
+          'message': '搜索系统无处不在，对于一般程序员来讲，更多的是自己业务系统内的搜索。'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'Ctc2l3IBtU89eAPVpJg2',
+        '_score': 1.0,
+        '_source': {
+          'id': '2',
+          'message': '如果文档未找到，我们将得到一个404 Not Found状态码'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'C9eml3IBtU89eAPVepgT',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-01-01 05:05:55',
+          'message': '成功获取了日志消息',
+          'level': 'success'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'DNeml3IBtU89eAPVepjf',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-02-02 04:04:32',
+          'message': '获取日志消息失败',
+          'level': 'error'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'Ddeml3IBtU89eAPVe5g7',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-03-03 03:03:21',
+          'message': '正在请求数据',
+          'level': 'debug'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'Dteml3IBtU89eAPVe5iO',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-04-04 02:02:12',
+          'message': '失去网络连接',
+          'level': 'info'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'D9eml3IBtU89eAPVe5jq',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-04-04 01:01:11',
+          'message': '网络连接失败',
+          'level': 'error'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'ENerl3IBtU89eAPVZpgd',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-01-01 05:05:55',
+          'message': '/home/fomp/osgi/tomcats/apache-tomcat-8.5.42',
+          'level': 'success'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'Ederl3IBtU89eAPVZph5',
+        '_score': 1.0,
+        '_source': {
+            'time': '2020-01-06 01:05:55',
+            'message': 'aa',
+            'level': 'error'
+        }
+    },
+    {
+        '_index': 'logger',
+        '_type': 'Log',
+        '_id': 'Etesl3IBtU89eAPVv5g5',
+        '_score': 1.0,
+        '_source': {
+          'time': '2020-06-09 14:02:55',
+          'message': 'Autofocus processing was blocked because a document already has a focused element.',
+          'level': 'debug'
+        }
+    }
+]

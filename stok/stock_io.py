@@ -60,4 +60,4 @@ def get_stock_pool_from_sina(node, page):
 
 if __name__=='__main__':
     get_stock_pool_from_sina('sh_a', 1)
-    #get_stock_pool_from_sina('sz_a', 1)
+    get_stock_pool_from_sina('sz_a', 1)

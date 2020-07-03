@@ -16,7 +16,7 @@ def filter_stock(stockHQ):
 # 100100
 def als_1(date='2019-12-24'):
     stock_list = []
-    items = StockHQ.select().where(StockHQ.date == date)
+    items = StockHQ.select().where(StockHQ.date == date).order_by(StockHQ.amount.desc())
     for stockHQ in items:
         s_name = stockHQ.name
         s_code = stockHQ.code
@@ -29,23 +29,16 @@ def als_1(date='2019-12-24'):
         s_amount = float(stockHQ.amount)
         if filter_stock(stockHQ):
             continue
-        if s_close > s_open > 0 and s_amount > 10000 * 10000:
-            s_zf = (s_high - s_low) / s_low * 100
-            s_entity = (s_close - s_open) / s_open * 100
-            s_max = (s_close - s_low) / s_low * 100
-            s_down = (s_pre_close - s_low) / s_pre_close * 100
-            if s_zf > 5 and s_max > 3 and s_down > 2:
-                print(s_name)
-                stock_list.append(s_code)
-
-    return stock_list
+        stock_list.append(s_code)
+        print(s_code)
+    return stock_list[100: 400]
 
 
 
 if __name__ == '__main__':
     # get_phone_data()
     # data_to_tdx_phone(zxg=als_1())
-    l1 = als_1(date='2020-06-11')
+    l1 = als_1(date='2020-06-30')
 
     with open('tod.txt', mode='w') as f:
         for item in l1:

@@ -149,6 +149,67 @@ def filter_stk1():
     return result
 
 
+def good_d_line(code, position_range):
+    kline = np.load('data/daily/{}'.format(code + '.npy'))
+    if kline.shape[0] < 120:
+        return None
+    s_open = kline[:, 2].astype(np.float)[:100]
+    s_high = kline[:, 3].astype(np.float)[:100]
+    s_low = kline[:, 4].astype(np.float)[:100]
+    s_close = kline[:, 5].astype(np.float)[:100]
+    s_pre_close = kline[:, 6].astype(np.float)[:100]
+    s_vol = kline[:, 9].astype(np.float)[:100]
+    s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
+    s_zf = (s_high - s_low) / s_low * 100
+    s_entity = (s_close - s_open) / s_open * 100
+    s_max = (s_close - s_low) / s_low * 100
+    s_down = (s_pre_close - s_low) / s_pre_close * 100
+    sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
+    result = []
+    for position in range(position_range[0], position_range[1]):
+        score = 0
+        if s_close[position] > s_open[position] and s_amount[position] > 10000 * 10000:
+            score = 0.5
+            if s_low[position] < sma_close_5[position] < s_high[position]:
+                score += 2
+            if s_low[position] < sma_close_10[position] < s_high[position]:
+                score += 2
+            if s_low[position] < sma_close_20[position] < s_high[position]:
+                score += 10
+            if score >= 2:
+                if s_zf[position] > 5 or s_entity[position] > 3:
+                    score += 2
+                else:
+                    score = 0
+                    if score < 0:
+                        score = 0
+        if s_close[position_range[0]] > sma_close_5[position_range[0]]:
+            score = 0
+        result.append(score)
+    return result
+
+
+def analysis_d2():
+    code_list = get_stock('sha') + get_stock('sza')
+    result = []
+    for index in range(0, 15):
+        for code in code_list:
+            score_list = good_d_line(code, [index, index + 10])
+            if not score_list:
+                continue
+            filter_result = [x for x in score_list if x > 2.5]
+            filter_20 = [x for x in filter_result if x > 10]
+            if len(filter_result) > 3 and len(filter_20) >= 1:
+                if code not in result:
+                    result.append(code)
+
+    with open('d2.txt', mode='w') as f:
+        for item in result:
+            f.write(item)
+            f.write('\n')
+    print(result)
+
+
 def analysis_daily(position):
     # code_list = get_stock('sha') + get_stock('sza')
     code_list = filter_stk1()
@@ -199,13 +260,14 @@ if __name__ == '__main__':
     # test2()
     # sync_daily()
     # sync_week()
+    analysis_d2()
     # filter_stk1()
-    result = analysis_daily(0) + analysis_daily(1) + analysis_daily(2) + analysis_daily(3) + analysis_daily(4)
-    result_f = []
-    [(result_f.append(x)) for x in result if x not in result_f]
-    with open('tod.txt', mode='w') as f:
-        for item in result_f:
-            f.write(item)
-            f.write('\n')
+    # result = analysis_daily(0) + analysis_daily(1) + analysis_daily(2) + analysis_daily(3) + analysis_daily(4)
+    # result_f = []
+    # [(result_f.append(x)) for x in result if x not in result_f]
+    # with open('tod.txt', mode='w') as f:
+    #     for item in result_f:
+    #         f.write(item)
+    #         f.write('\n')
 
 
