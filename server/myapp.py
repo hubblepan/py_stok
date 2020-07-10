@@ -5,7 +5,7 @@ import flask_restful
 import flask_restful.reqparse as parse
 import requests as r
 from stok import stock_tushare
-from server.service import service_tushare
+from server.register import service_stk
 
 app = Flask(__name__)
 api = flask_restful.Api(app)
@@ -34,9 +34,11 @@ class Proxy(flask_restful.Resource):
         return text
 
 
+
+
 api.add_resource(HelloWorld, '/')
 api.add_resource(Proxy, '/proxy')
-service_tushare.register(api)
+service_stk.register(api)
 
 if __name__ == '__main__':
     app.run(debug=True)

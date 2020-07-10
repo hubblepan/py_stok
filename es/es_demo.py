@@ -86,10 +86,10 @@ def d1():
 
 
 if __name__ == '__main__':
-    str = json.dumps(d1(), indent=4)
-    with open('a.txt', mode='w') as f:
-        f.write(str)
-   #  find_by_code('600176')
+    # str = json.dumps(d1(), indent=4)
+    # with open('a.txt', mode='w') as f:
+    #     f.write(str)
+   find_by_code('600176')
    # es1.put('/research/_mapping', json_data={
    #          'properties': {
    #              'title': {

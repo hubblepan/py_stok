@@ -50,7 +50,7 @@ def d_daily(code):
     data = api('daily', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200709',
+        'end_date': '20200624',
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -232,9 +232,9 @@ def analysis_daily_d3(position):
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
             if s_zf[position] > 5:
-                if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] or s_low[position] < sma_close_20[position] < s_high[position]):
+                if s_low[position] < sma_close_5[position] < s_high[position] and s_low[position] < sma_close_10[position] < s_high[position] and s_low[position] < sma_close_20[position] < s_high[position]:
                     print(code)
-                    result.append(code)
+            result.append(code)
     return result
 
 def analysis_daily(position):
@@ -259,7 +259,7 @@ def analysis_daily(position):
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
             if s_zf[position] > 5 and s_max[position] > 3:
-                if s_low[position] <= sma_close_5[position] <= s_high[position] or s_low[position] <= sma_close_10[position] <= s_high[position] or s_low[position] <= sma_close_20[position] <= s_high[position]:
+                if s_low[position] < sma_close_5[position] < s_high[position] or s_low[position] < sma_close_10[position] < s_high[position] or s_low[position] < sma_close_20[position] < s_high[position]:
                     print(code)
                     result.append(code)
     return result
@@ -285,11 +285,11 @@ def analysis_week(position):
 if __name__ == '__main__':
     # test()
     # test2()
-    sync_daily()
+    # sync_daily()
     # sync_week()
     # analysis_d2()
     # filter_stk1()
-    result = result = analysis_daily_d3(1)
+    result = result = analysis_daily_d3(1) + analysis_daily_d3(2) + analysis_daily_d3(3)
     result_f = []
     [(result_f.append(x)) for x in result if x not in result_f]
     with open('tod.txt', mode='w') as f:
