@@ -50,7 +50,7 @@ def d_daily(code):
     data = api('daily', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200709',
+        'end_date': '20200723',
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -64,7 +64,7 @@ def sync_week():
     code_list = get_stock('sha')
     for code in code_list:
         try:
-            df = ts.pro_bar(ts_code=code + '.SH', adj='qfq', start_date='20180101', end_date='20200624', freq='W')
+            df = ts.pro_bar(ts_code=code + '.SH', adj='qfq', start_date='20180101', end_date='20200717', freq='W')
             data = df.values
             np.save('data/week/{}'.format(code), data)
             time.sleep(0.2)
@@ -74,7 +74,7 @@ def sync_week():
     code_list = get_stock('sza')
     for code in code_list:
         try:
-            df = ts.pro_bar(ts_code=code + '.SZ', adj='qfq', start_date='20180101', end_date='20200624', freq='W')
+            df = ts.pro_bar(ts_code=code + '.SZ', adj='qfq', start_date='20180101', end_date='20200717', freq='W')
             data = df.values
             np.save('data/week/{}'.format(code), data)
             time.sleep(0.2)
@@ -231,8 +231,8 @@ def analysis_daily_d3(position):
             s_entity = (s_close - s_open) / s_open * 100
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
-            if s_zf[position] > 5:
-                if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] or s_low[position] < sma_close_20[position] < s_high[position]):
+            if s_zf[position] > 3:
+                if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] and s_low[position] < sma_close_20[position] < s_high[position]):
                     print(code)
                     result.append(code)
     return result
@@ -289,12 +289,12 @@ if __name__ == '__main__':
     # sync_week()
     # analysis_d2()
     # filter_stk1()
-    result = result = analysis_daily_d3(1)
-    result_f = []
-    [(result_f.append(x)) for x in result if x not in result_f]
-    with open('tod.txt', mode='w') as f:
-        for item in result_f:
-            f.write(item)
-            f.write('\n')
+    # result = result = analysis_daily_d3(1) + analysis_daily_d3(0)
+    # result_f = []
+    # [(result_f.append(x)) for x in result if x not in result_f]
+    # with open('tod.txt', mode='w') as f:
+    #     for item in result_f:
+    #         f.write(item)
+    #         f.write('\n')
 
 
