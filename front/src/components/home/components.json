@@ -1,0 +1,12 @@
+[
+  {
+    "name": "chart demo",
+    "path": "/chart",
+    "children": [
+      {
+        "name": "chart_line_bar",
+        "path": "/chart/line-bar"
+      }
+    ]
+  }
+]

@@ -1,0 +1,51 @@
+<template>
+    <app-flow-container ref="AppFlowContainer">
+<!--        <template v-slot:header>-->
+<!--            <div class="header">-->
+
+<!--            </div>-->
+<!--        </template>-->
+        <div class="content">
+            <el-table
+                    :data="tableData"
+                    style="width: 98%">
+                <el-table-column
+                        prop="date"
+                        label="日期"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="name"
+                        label="姓名"
+                        width="180">
+                </el-table-column>
+                <el-table-column
+                        prop="address"
+                        label="地址">
+                </el-table-column>
+            </el-table>
+        </div>
+    </app-flow-container>
+</template>
+
+<script>
+    import AppFlowContainer from "../views/AppFlowContainer";
+    export default {
+        name: "StokPerformance",
+        components: {AppFlowContainer},
+        data() {
+          return {
+              tableData: [],
+          };
+        },
+    }
+</script>
+
+<style scoped>
+    .header{
+
+    }
+    .content {
+        background-color: rgb(255, 69, 0);
+    }
+</style>

@@ -1,0 +1,12 @@
+{
+  "menu": [
+    {
+      "routeName": "StokMonitor",
+      "title": "Monitor"
+    },
+    {
+      "routeName": "StokCore",
+      "title": "Core"
+    }
+  ]
+}
