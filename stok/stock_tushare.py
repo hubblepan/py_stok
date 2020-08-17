@@ -8,6 +8,7 @@ import time
 import math
 from stok import stock_indicator as indicator
 import tushare as ts
+from datetime import datetime
 
 ts.set_token('bb76853dcb5378f0458929880d66ba14f7f74700601e8009e2d0117b')
 host = 'http://api.tushare.pro'
@@ -36,11 +37,15 @@ def api(api_name, params):
     return res.text
 
 
+def today():
+    return datetime.now().strftime('%Y%m%d')
+
+
 def d_week(code):
     data = api('weekly', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200624',
+        'end_date': today(),
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -50,7 +55,7 @@ def d_daily(code):
     data = api('daily', {
         'ts_code': code,
         'start_date': '20190107',
-        'end_date': '20200723',
+        'end_date': today(),
     })
     print(data)
     return json.loads(data)['data']['items']
@@ -64,21 +69,16 @@ def sync_week():
     code_list = get_stock('sha')
     for code in code_list:
         try:
-            df = ts.pro_bar(ts_code=code + '.SH', adj='qfq', start_date='20180101', end_date='20200717', freq='W')
-            data = df.values
+            data = np.array(d_week(code + '.SH'))
             np.save('data/week/{}'.format(code), data)
-            time.sleep(0.2)
         except Exception as e:
-            print(e)
+            pass
 
     code_list = get_stock('sza')
     for code in code_list:
         try:
-            df = ts.pro_bar(ts_code=code + '.SZ', adj='qfq', start_date='20180101', end_date='20200717', freq='W')
-            data = df.values
+            data = np.array(d_week(code + '.SZ'))
             np.save('data/week/{}'.format(code), data)
-            time.sleep(0.2)
-            print(code)
         except Exception as e:
             pass
 
@@ -89,7 +89,6 @@ def sync_daily():
         try:
             data = np.array(d_daily(code + '.SH'))
             np.save('data/daily/{}'.format(code), data)
-            time.sleep(0.2)
         except Exception as e:
             pass
 
@@ -98,7 +97,6 @@ def sync_daily():
         try:
             data = np.array(d_daily(code + '.SZ'))
             np.save('data/daily/{}'.format(code), data)
-            time.sleep(0.2)
         except Exception as e:
             pass
 
@@ -106,7 +104,7 @@ def sync_daily():
 def test2():
     kline = np.load('data/daily/600000.npy')
     sma_close_5 = indicator.sma(kline, 5)[0]
-    print(sma_close_5)
+    print(kline)
 
 
 def is_cross_sma(pre_close, low, high, sma):
@@ -210,6 +208,11 @@ def analysis_d2():
     print(result)
 
 
+def analysis_daily_d4(position):
+
+    pass
+
+
 def analysis_daily_d3(position):
     # code_list = get_stock('sha') + get_stock('sza')
     code_list = filter_stk1()
@@ -226,15 +229,16 @@ def analysis_daily_d3(position):
         s_vol = kline[:, 9].astype(np.float)[:100]
         s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
-        if s_close[position] > s_open[position] > 0 and s_amount[position] > 10000 * 10000:
+        if s_close[position] > s_open[position] > 0 and s_amount[position] > 20000 * 10000:
             s_zf = (s_high - s_low) / s_low * 100
             s_entity = (s_close - s_open) / s_open * 100
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
             if s_zf[position] > 3:
                 if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] and s_low[position] < sma_close_20[position] < s_high[position]):
-                    print(code)
-                    result.append(code)
+                    if np.max(s_close[position: position + 4]) == s_close[position]:
+                        print(code)
+                        result.append(code)
     return result
 
 def analysis_daily(position):
@@ -289,12 +293,12 @@ if __name__ == '__main__':
     # sync_week()
     # analysis_d2()
     # filter_stk1()
-    # result = result = analysis_daily_d3(1) + analysis_daily_d3(0)
-    # result_f = []
-    # [(result_f.append(x)) for x in result if x not in result_f]
-    # with open('tod.txt', mode='w') as f:
-    #     for item in result_f:
-    #         f.write(item)
-    #         f.write('\n')
-
+    # d_week('600000.SH')
+    result = analysis_daily_d3(4) + analysis_daily_d3(3) + analysis_daily_d3(2) + analysis_daily_d3(1) + analysis_daily_d3(0)
+    result_f = []
+    [(result_f.append(x)) for x in result if x not in result_f]
+    with open('tod.txt', mode='w') as f:
+        for item in result_f:
+            f.write(item)
+            f.write('\n')
 

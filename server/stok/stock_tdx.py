@@ -134,4 +134,4 @@ def load_stock_code_list(source):
 
 if __name__=='__main__':
     # #data to phone
-    data_to_tdx_phone(zxg=load_stock_code_list('tod.txt'))
+    data_to_tdx_phone(tod=load_stock_code_list('tod.txt'))
