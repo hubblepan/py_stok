@@ -113,11 +113,14 @@ def is_cross_sma(pre_close, low, high, sma):
         return True
     return False
 
+
 def is_pull():
     pass
 
+
 def score_amount():
     pass
+
 
 def filter_red_bar():
     pass
@@ -209,8 +212,125 @@ def analysis_d2():
 
 
 def analysis_daily_d4(position):
-
     pass
+
+
+def analysis_d4(position):
+    code_list = get_stock('sha') + get_stock('sza')
+    code_list = ['000001']
+    labels = ['d1', 'd2', 'd3', 'd4']
+    result_item = {
+        'code': 'xxxxxx',
+        'd1': [],
+        'd2': [],
+        'd3': [],
+        'd4': [],
+    }
+    result_func = {
+        'd1': d4_parse_down,
+        'd2': d4_parse_up,
+        'd3': d4_parse_down,
+        'd4': d4_parse_up,
+    }
+    match_list = []
+    for code in code_list:
+        dkline = np.load('data/daily/{}'.format(code + '.npy'))
+        if dkline.shape[0] - position < 120:
+            continue
+        start = position
+        match = True
+        result_list = []
+        for index in range(0, 4):
+            label = labels[index]
+            parse_result = result_func[label](dkline, start)
+            start = parse_result['end']
+            if start == -1:
+                match = False
+                break
+            result_list.append(parse_result)
+        if match:
+            item = {
+                'code': code,
+                'd1': result_list[0],
+                'd2': result_list[1],
+                'd3': result_list[2],
+                'd4': result_list[3],
+            }
+            match_list.append(item)
+            # 根据过滤结果执行分析
+            d1 = item['d1']
+            d2 = item['d2']
+            d3 = item['d3']
+            d4 = item['d4']
+            d1_merge = d1['merge']
+            d2_merge = d2['merge']
+            d3_merge = d3['merge']
+            d4_merge = d4['merge']
+            if
+
+
+
+
+def d4_parse_down(kline, start):
+    end = start
+    merge = []
+    detail = []
+    merge = kline[start]
+    for index in range(start, kline.shape[0] - start):
+        s_open = float(kline[index, 2])
+        s_high = float(kline[index, 3])
+        s_low = float(kline[index, 4])
+        s_close = float(kline[index, 5])
+        s_pre_close = float(kline[index, 6])
+        s_vol = float(kline[index, 9])
+        s_amount = float(kline[index, 10])
+        end = index
+        if s_close <= s_pre_close:
+            detail.append(kline[index])
+            merge[2] = s_open  # open
+            merge[3] = max(float(merge[3]), s_high)  # high
+            merge[4] = min(float(merge[4]), s_low)  # low
+            merge[5] = float(merge[5])  # close
+            merge[6] = s_pre_close  # preclose
+            merge[9] = float(merge[9]) + s_vol  # vol
+            merge[10] = float(merge[10]) + s_amount  # amount
+            continue
+        else:
+            break
+    if end - start == 0 or end - start > 3:
+        return {'end': -1, 'merge': None, 'detail': None}
+    return {'end': end, 'merge': merge, 'detail': detail}
+
+
+def d4_parse_up(kline, start):
+    end = start
+    merge = []
+    detail = []
+    merge = kline[start]
+    for index in range(start, kline.shape[0] - start):
+        s_open = float(kline[index, 2])
+        s_high = float(kline[index, 3])
+        s_low = float(kline[index, 4])
+        s_close = float(kline[index, 5])
+        s_pre_close = float(kline[index, 6])
+        s_vol = float(kline[index, 9])
+        s_amount = float(kline[index, 10])
+        end = index
+        if s_close >= s_pre_close:
+            detail.append(kline[index])
+            merge[2] = s_open  # open
+            merge[3] = max(float(merge[3]), s_high)  # high
+            merge[4] = min(float(merge[4]), s_low)  # low
+            merge[5] = float(merge[5])  # close
+            merge[6] = s_pre_close  # preclose
+            merge[9] = float(merge[9]) + s_vol  # vol
+            merge[10] = float(merge[10]) + s_amount  # amount
+            continue
+        else:
+            break
+    if end - start == 0 or end - start > 5:
+        return {'end': -1, 'merge': None, 'detail': None}
+    return {'end': end, 'merge': merge, 'detail': detail}
 
 
 def analysis_daily_d3(position):
@@ -234,12 +354,15 @@ def analysis_daily_d3(position):
             s_entity = (s_close - s_open) / s_open * 100
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
-            if s_zf[position] > 3:
-                if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] and s_low[position] < sma_close_20[position] < s_high[position]):
-                    if np.max(s_close[position: position + 4]) == s_close[position]:
-                        print(code)
-                        result.append(code)
+            if s_zf[position] > 5:
+                if s_low[position] < sma_close_20[position]:
+                    print(code)
+                    result.append(code)
+                # if s_low[position] < sma_close_5[position] < s_high[position] and (s_low[position] < sma_close_10[position] < s_high[position] and s_low[position] < sma_close_20[position] < s_high[position]):
+                #     if np.max(s_close[position: position + 4]) == s_close[position]:
+                #
     return result
+
 
 def analysis_daily(position):
     # code_list = get_stock('sha') + get_stock('sza')
@@ -255,7 +378,7 @@ def analysis_daily(position):
         s_close = kline[:, 5].astype(np.float)[:100]
         s_pre_close = kline[:, 6].astype(np.float)[:100]
         s_vol = kline[:, 9].astype(np.float)[:100]
-        s_amount = (kline[:, 10].astype(np.float)*1000)[:100]
+        s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
         if s_close[position] > s_open[position] > 0 and s_amount[position] > 10000 * 10000:
             s_zf = (s_high - s_low) / s_low * 100
@@ -263,7 +386,8 @@ def analysis_daily(position):
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
             if s_zf[position] > 5 and s_max[position] > 3:
-                if s_low[position] <= sma_close_5[position] <= s_high[position] or s_low[position] <= sma_close_10[position] <= s_high[position] or s_low[position] <= sma_close_20[position] <= s_high[position]:
+                if s_low[position] <= sma_close_5[position] <= s_high[position] or s_low[position] <= sma_close_10[
+                    position] <= s_high[position] or s_low[position] <= sma_close_20[position] <= s_high[position]:
                     print(code)
                     result.append(code)
     return result
@@ -281,24 +405,25 @@ def analysis_week(position):
         low = kline[:5].astype(np.float)[:100]
         pre_close = kline[:6].astype(np.float)[:100]
         vol = kline[:9].astype(np.float)[:100]
-        amount = kline[:10].astype(np.float)*1000[:100]
+        amount = kline[:10].astype(np.float) * 1000[:100]
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
         if amount[position] > 1 * 100000000:
             pass
 
+
 if __name__ == '__main__':
     # test()
-    # test2()
-    sync_daily()
+    d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
+    # analysis_d4(0)
+    # sync_daily()
     # sync_week()
     # analysis_d2()
     # filter_stk1()
     # d_week('600000.SH')
-    result = analysis_daily_d3(4) + analysis_daily_d3(3) + analysis_daily_d3(2) + analysis_daily_d3(1) + analysis_daily_d3(0)
-    result_f = []
-    [(result_f.append(x)) for x in result if x not in result_f]
-    with open('tod.txt', mode='w') as f:
-        for item in result_f:
-            f.write(item)
-            f.write('\n')
-
+    # result = analysis_daily_d3(1) + analysis_daily_d3(0)
+    # result_f = []
+    # [(result_f.append(x)) for x in result if x not in result_f]
+    # with open('tod.txt', mode='w') as f:
+    #     for item in result_f:
+    #         f.write(item)
+    #         f.write('\n')
