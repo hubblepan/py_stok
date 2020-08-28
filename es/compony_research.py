@@ -76,7 +76,7 @@ def code_picker(title):
 def request_all():
     delete_es_index()
     create_es_index()
-    for page in range(0, 1000):
+    for page in range(1, 1000):
         html = r.get('http://stock.finance.sina.com.cn/stock/go.php/vReport_List/kind/company/index.phtml?p={page}'.format(page=page)).text
         soup = BeautifulSoup(html, 'html.parser')
         for item in soup.table.find_all('tr')[2:]:

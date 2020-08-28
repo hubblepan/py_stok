@@ -4,8 +4,8 @@ from bs4 import BeautifulSoup
 import datetime
 from es import randomUtil
 
-_index = 'logger'
-_type = 'Log'
+_index = 'research'
+_type = '_doc'
 
 
 # 创建一条记录
@@ -195,39 +195,40 @@ def reg():
 
 
 if __name__ == '__main__':
+    query_all()
     # put('/demo3', json_data={})
     # 创建索引，  同时指定 settings 和 mappings,   注意： mappings 后期只可新增， 不可修改
-    put('/people2', json_data={
-        'settings': {
-          'number_of_shards': 3,
-          'number_of_replicas': 2
-        },
-        'mappings': {
-            'properties': {
-                'name': {
-                    'type': 'text',  #
-                },
-                'age': {
-                    'type': 'integer',  # long, double, boolean, integer 等
-                },
-                'born_date': {
-                    'type': 'date',
-                    'format': 'yyyy-MM-dd HH:mm:ss'  # 日期类型 可以指定 format
-                },
-                'family_member': {
-                    'type': 'nested',   # 对象使用 object 类型， 数组使用 nested类型
-                    'properties': {     # nested 和 object 都有 properties属性， 用来指定 子对象 的属性类型
-                        'name': {
-                            'type': 'text',
-                        },
-                        'relation': {
-                            'type': 'text',
-                        }
-                    }
-                }
-            }
-        }
-    })
+    # put('/people2', json_data={
+    #     'settings': {
+    #       'number_of_shards': 3,
+    #       'number_of_replicas': 2
+    #     },
+    #     'mappings': {
+    #         'properties': {
+    #             'name': {
+    #                 'type': 'text',  #
+    #             },
+    #             'age': {
+    #                 'type': 'integer',  # long, double, boolean, integer 等
+    #             },
+    #             'born_date': {
+    #                 'type': 'date',
+    #                 'format': 'yyyy-MM-dd HH:mm:ss'  # 日期类型 可以指定 format
+    #             },
+    #             'family_member': {
+    #                 'type': 'nested',   # 对象使用 object 类型， 数组使用 nested类型
+    #                 'properties': {     # nested 和 object 都有 properties属性， 用来指定 子对象 的属性类型
+    #                     'name': {
+    #                         'type': 'text',
+    #                     },
+    #                     'relation': {
+    #                         'type': 'text',
+    #                     }
+    #                 }
+    #             }
+    #         }
+    #     }
+    # })
 
     # 复杂对象的 mapping 嵌套
     # {

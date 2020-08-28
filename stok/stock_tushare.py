@@ -70,8 +70,11 @@ def sync_week():
     for code in code_list:
         try:
             data = np.array(d_week(code + '.SH'))
+            data = data[:, [0, 1, 3, 4, 5, 2, 6, 7, 8, 9, 10]]
             np.save('data/week/{}'.format(code), data)
+            time.sleep(0.1)
         except Exception as e:
+
             pass
 
     code_list = get_stock('sza')
@@ -79,6 +82,7 @@ def sync_week():
         try:
             data = np.array(d_week(code + '.SZ'))
             np.save('data/week/{}'.format(code), data)
+            time.sleep(0.1)
         except Exception as e:
             pass
 
@@ -89,6 +93,7 @@ def sync_daily():
         try:
             data = np.array(d_daily(code + '.SH'))
             np.save('data/daily/{}'.format(code), data)
+            time.sleep(0.1)
         except Exception as e:
             pass
 
@@ -97,6 +102,7 @@ def sync_daily():
         try:
             data = np.array(d_daily(code + '.SZ'))
             np.save('data/daily/{}'.format(code), data)
+            time.sleep(0.1)
         except Exception as e:
             pass
 
@@ -266,7 +272,6 @@ def analysis_d4(position):
             d2_merge = d2['merge']
             d3_merge = d3['merge']
             d4_merge = d4['merge']
-            if
 
 
 
@@ -365,8 +370,8 @@ def analysis_daily_d3(position):
 
 
 def analysis_daily(position):
-    # code_list = get_stock('sha') + get_stock('sza')
-    code_list = filter_stk1()
+    code_list = get_stock('sha') + get_stock('sza')
+    # code_list = filter_stk1()
     result = []
     for code in code_list:
         kline = np.load('data/daily/{}'.format(code + '.npy'))
@@ -379,17 +384,21 @@ def analysis_daily(position):
         s_pre_close = kline[:, 6].astype(np.float)[:100]
         s_vol = kline[:, 9].astype(np.float)[:100]
         s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
+        sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
         if s_close[position] > s_open[position] > 0 and s_amount[position] > 10000 * 10000:
             s_zf = (s_high - s_low) / s_low * 100
             s_entity = (s_close - s_open) / s_open * 100
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
-            if s_zf[position] > 5 and s_max[position] > 3:
-                if s_low[position] <= sma_close_5[position] <= s_high[position] or s_low[position] <= sma_close_10[
-                    position] <= s_high[position] or s_low[position] <= sma_close_20[position] <= s_high[position]:
-                    print(code)
-                    result.append(code)
+            # 还是用这个 + d4
+            if s_zf[position] > 5 and s_max[position] > 3 and s_vol[position] > sma_vol_10[position]:
+                if sma_close_5[position] > np.max(sma_close_5[position + 1: position + 6]):
+                    if s_low[position] <= sma_close_10[position] <= s_high[position] \
+                            or s_low[position] <= sma_close_20[position] <= s_high[position]\
+                            or s_pre_close[position] <= sma_close_20[position] <= s_high[position]:
+                        print(code)
+                        result.append(code)
     return result
 
 
@@ -413,17 +422,30 @@ def analysis_week(position):
 
 if __name__ == '__main__':
     # test()
-    d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
+    # d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
     # analysis_d4(0)
     # sync_daily()
     # sync_week()
     # analysis_d2()
     # filter_stk1()
-    # d_week('600000.SH')
-    # result = analysis_daily_d3(1) + analysis_daily_d3(0)
-    # result_f = []
-    # [(result_f.append(x)) for x in result if x not in result_f]
-    # with open('tod.txt', mode='w') as f:
-    #     for item in result_f:
-    #         f.write(item)
-    #         f.write('\n')
+    result = {}
+    for index in range(0, 10):
+        code_list = analysis_daily(index)
+        for code in code_list:
+            if result.get(code):
+                result[code] = result[code] + 1
+            else:
+                result[code] = 1
+        print(index)
+    r = []
+    for key in result.keys():
+        if result[key] >=2:
+            r.append(key)
+
+    # result = analysis_daily(5) + analysis_daily(4) + analysis_daily(3) + analysis_daily(2) + analysis_daily(1) + analysis_daily(0)
+    result_f = r
+    [(result_f.append(x)) for x in result if x not in result_f]
+    with open('tod.txt', mode='w') as f:
+        for item in result_f:
+            f.write(item)
+            f.write('\n')
