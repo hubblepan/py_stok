@@ -370,7 +370,7 @@ def analysis_daily_d3(position):
 
 
 def analysis_daily(position):
-    code_list = get_stock('sha') + get_stock('sza')
+    code_list = filter_stk1()
     # code_list = filter_stk1()
     result = []
     for code in code_list:
@@ -386,19 +386,21 @@ def analysis_daily(position):
         s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
         sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
         sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
-        if s_close[position] > s_open[position] > 0 and s_amount[position] > 10000 * 10000:
+        if s_close[position] > s_open[position] > 0 and s_amount[position] > 15000 * 10000:
             s_zf = (s_high - s_low) / s_low * 100
             s_entity = (s_close - s_open) / s_open * 100
             s_max = (s_close - s_low) / s_low * 100
             s_down = (s_pre_close - s_low) / s_pre_close * 100
             # 还是用这个 + d4
-            if s_zf[position] > 5 and s_max[position] > 3 and s_vol[position] > sma_vol_10[position]:
-                if sma_close_5[position] > np.max(sma_close_5[position + 1: position + 6]):
-                    if s_low[position] <= sma_close_10[position] <= s_high[position] \
-                            or s_low[position] <= sma_close_20[position] <= s_high[position]\
-                            or s_pre_close[position] <= sma_close_20[position] <= s_high[position]:
-                        print(code)
-                        result.append(code)
+            if sma_close_5[position] < 40:
+                if s_zf[position] > 4 and s_max[position] > 3 and s_vol[position] > sma_vol_10[position]:
+                    if sma_close_5[position] < sma_close_20[position] or sma_close_5[position] < sma_close_10[position]:
+                        if sma_close_5[position] > np.max(sma_close_5[position + 1: position + 3]):
+                            if s_low[position] <= sma_close_10[position] <= s_high[position] \
+                                    or s_low[position] <= sma_close_20[position] <= s_high[position]\
+                                    or s_pre_close[position] <= sma_close_20[position] <= s_high[position]:
+                                print(code)
+                                result.append(code)
     return result
 
 
@@ -415,8 +417,8 @@ def analysis_week(position):
         pre_close = kline[:6].astype(np.float)[:100]
         vol = kline[:9].astype(np.float)[:100]
         amount = kline[:10].astype(np.float) * 1000[:100]
-        sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
-        if amount[position] > 1 * 100000000:
+        sma_close_5, sma_close_10, sma_close_20 = aindicator.sma(kline, 5, 10, 20)
+        if amount[position] > 1 * 150000000:
             pass
 
 
@@ -428,22 +430,11 @@ if __name__ == '__main__':
     # sync_week()
     # analysis_d2()
     # filter_stk1()
-    result = {}
-    for index in range(0, 10):
-        code_list = analysis_daily(index)
-        for code in code_list:
-            if result.get(code):
-                result[code] = result[code] + 1
-            else:
-                result[code] = 1
-        print(index)
-    r = []
-    for key in result.keys():
-        if result[key] >=2:
-            r.append(key)
 
-    # result = analysis_daily(5) + analysis_daily(4) + analysis_daily(3) + analysis_daily(2) + analysis_daily(1) + analysis_daily(0)
-    result_f = r
+    result = []
+    for position in range(0, 9):
+        result += analysis_daily(position)
+    result_f = []
     [(result_f.append(x)) for x in result if x not in result_f]
     with open('tod.txt', mode='w') as f:
         for item in result_f:
