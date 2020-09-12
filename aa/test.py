@@ -36,3 +36,6 @@ a = [
 ];
 a.sort(key=lambda item: item['number'])
 print(a)
+
+
+print((not 2) < 3)
