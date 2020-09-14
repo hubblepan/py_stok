@@ -29,5 +29,9 @@ def sma_week(kline, *timeperiod):
     return [_sma(close, timeperiod=i) for i in timeperiod]
 
 
+def sma1(nplist, timeperiod, position):
+    return  np.sum(nplist[position: position + timeperiod]) / timeperiod
+
+
 def _sma(nparr, timeperiod):
     return np.convolve(np.ones(timeperiod) / timeperiod,  nparr)[timeperiod - 1 : -timeperiod + 1]

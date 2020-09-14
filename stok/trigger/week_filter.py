@@ -9,6 +9,7 @@ from stok import stock_indicator as indicator
 
 
 def t_week_filter(kline, position):
+
     # 日线条数要大于120条， 6个月
     if kline.shape[0] < 30:
         return False
@@ -19,13 +20,18 @@ def t_week_filter(kline, position):
     s_pre_close = kline[:, 6].astype(np.float)[:100]
     s_vol = kline[:, 9].astype(np.float)[:100]
     s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
-    sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
-    sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
+    # sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
+    # sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
+
+    def sma_close_20(p):
+        return indicator.sma1(s_close, 20, p)
 
     # 周线越过 sma20后， 上涨超过 50%的不考虑
     for index in range(0, kline.shape[0] - 22):
-        if s_low[index] < sma_close_20[index]:
-            price_20 = sma_close_20[index]
-            if (s_close[position] - price_20 / price_20) * 100 > 100:
+        if s_low[index] < sma_close_20(index):
+            price_20 = sma_close_20(index)
+            if (s_close[position] - price_20 / price_20) > 100:
                 return False
+            else:
+                return True
     return True

@@ -11,10 +11,12 @@ import tushare as ts
 from datetime import datetime
 from stok.trigger import trigger1
 from stok.trigger import week_filter
+import os
 
 ts.set_token('bb76853dcb5378f0458929880d66ba14f7f74700601e8009e2d0117b')
 host = 'http://api.tushare.pro'
 token = 'bb76853dcb5378f0458929880d66ba14f7f74700601e8009e2d0117b'
+pro = ts.pro_api(token)
 
 
 def get_stock(name):
@@ -44,23 +46,25 @@ def today():
 
 
 def d_week(code):
-    data = api('weekly', {
-        'ts_code': code,
-        'start_date': '20190107',
-        'end_date': today(),
-    })
-    print(data)
-    return json.loads(data)['data']['items']
+    # data = api('weekly', {
+    #     'ts_code': code,
+    #     'start_date': '20190107',
+    #     'end_date': today(),
+    # })
+    # print(data)
+    # return json.loads(data)['data']['items']
+    data = pro.weekly(ts_code=code, start_date='20190107', end_date=today())
+    return data.values
 
 
 def d_daily(code):
-    data = api('daily', {
-        'ts_code': code,
-        'start_date': '20190107',
-        'end_date': today(),
-    })
-    print(data)
-    return json.loads(data)['data']['items']
+    # data = api('daily', {
+    #     'ts_code': code,
+    #     'start_date': '20190107',
+    #     'end_date': today(),
+    # })
+    data = pro.daily(ts_code=code, start_date='20190107', end_date=today())
+    return data.values
 
 
 def test():
@@ -71,7 +75,7 @@ def sync_week():
     code_list = get_stock('sha')
     for code in code_list:
         try:
-            data = np.array(d_week(code + '.SH'))
+            data = d_week(code + '.SH')
             data = data[:, [0, 1, 3, 4, 5, 2, 6, 7, 8, 9, 10]]
             np.save('data/week/{}'.format(code), data)
             time.sleep(0.1)
@@ -82,7 +86,7 @@ def sync_week():
     code_list = get_stock('sza')
     for code in code_list:
         try:
-            data = np.array(d_week(code + '.SZ'))
+            data = d_week(code + '.SZ')
             data = data[:, [0, 1, 3, 4, 5, 2, 6, 7, 8, 9, 10]]
             np.save('data/week/{}'.format(code), data)
             time.sleep(0.1)
@@ -94,16 +98,18 @@ def sync_daily():
     code_list = get_stock('sha')
     for code in code_list:
         try:
-            data = np.array(d_daily(code + '.SH'))
+            print(code)
+            data = d_daily(code + '.SH')
             np.save('data/daily/{}'.format(code), data)
             time.sleep(0.1)
         except Exception as e:
+            print(e)
             pass
 
     code_list = get_stock('sza')
     for code in code_list:
         try:
-            data = np.array(d_daily(code + '.SZ'))
+            data = d_daily(code + '.SZ')
             np.save('data/daily/{}'.format(code), data)
             time.sleep(0.1)
         except Exception as e:
@@ -158,16 +164,20 @@ def filter_stk1():
 #                              or s_pre_close[position] <= sma_close_20[position] <= s_high[position]):
 
 
+def hasFile(code):
+    return os.path.exists('data/week/{}'.format(code + '.npy')) and os.path.exists('data/daily/{}'.format(code + '.npy'))
+
+
 def analysis_daily(position1):
     code_list = get_stock('sha') + get_stock('sza')
-    code_list = ['600036']
+    code_list = [code for code in code_list if hasFile(code)]
+    # code_list = ['600036']
     code_list = [code for code in code_list if week_filter.t_week_filter(np.load('data/week/{}'.format(code + '.npy'), allow_pickle=True), 0)]
-    print(code_list, "xxx")
     # code_list = ['600019']
     # code_list = filter_stk1()
     result1 = []
     for code in code_list:
-        kline = np.load('data/daily/{}'.format(code + '.npy'))
+        kline = np.load('data/daily/{}'.format(code + '.npy'), allow_pickle=True)
         if trigger1.t_all(kline, position1):
             print(code)
             result1.append(code)
@@ -184,7 +194,7 @@ if __name__ == '__main__':
     # filter_stk1()
 
     result = []
-    for position in range(0, 2):
+    for position in range(0, 6):
         result += analysis_daily(position)
     result_f = []
     [(result_f.append(x)) for x in result if x not in result_f]
