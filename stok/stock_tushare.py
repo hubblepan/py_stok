@@ -25,10 +25,16 @@ def get_stock(name):
         return []
     with open(name, 'r', encoding='utf-8') as f:
         for stock in f:
-            if not stock.startswith('#'):
-                stock = stock.strip('\n').split(',')
-                if stock != '':
-                    l_stock_list.append(stock[0])
+            if stock.startswith('#') or stock == '':
+                continue
+            stock = stock.strip('\n').split(',')
+            if 'st' in stock[1] or 'ST' in stock[1]:
+                continue
+            # if stock[0].startswith('688'):
+            #     continue
+            # if stock[0].startswith('300'):
+            #     continue
+            l_stock_list.append(stock[0])
     return l_stock_list
 
 
@@ -78,7 +84,7 @@ def sync_week():
             data = d_week(code + '.SH')
             data = data[:, [0, 1, 3, 4, 5, 2, 6, 7, 8, 9, 10]]
             np.save('data/week/{}'.format(code), data)
-            time.sleep(0.1)
+            time.sleep(0.15)
         except Exception as e:
 
             pass
@@ -89,7 +95,7 @@ def sync_week():
             data = d_week(code + '.SZ')
             data = data[:, [0, 1, 3, 4, 5, 2, 6, 7, 8, 9, 10]]
             np.save('data/week/{}'.format(code), data)
-            time.sleep(0.1)
+            time.sleep(0.15)
         except Exception as e:
             pass
 
@@ -101,7 +107,7 @@ def sync_daily():
             print(code)
             data = d_daily(code + '.SH')
             np.save('data/daily/{}'.format(code), data)
-            time.sleep(0.1)
+            time.sleep(0.15)
         except Exception as e:
             print(e)
             pass
@@ -111,7 +117,7 @@ def sync_daily():
         try:
             data = d_daily(code + '.SZ')
             np.save('data/daily/{}'.format(code), data)
-            time.sleep(0.1)
+            time.sleep(0.15)
         except Exception as e:
             pass
 
@@ -133,6 +139,10 @@ def filter_stk1():
             print(code)
             result.append(code)
     return result
+
+def xxx():
+
+    pass
 
 
 # if kline.shape[0] < 120:
@@ -188,17 +198,18 @@ if __name__ == '__main__':
     # test()
     # d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
     # analysis_d4(0)
-    # sync_daily()
-    # sync_week()
+    sync_daily()
+    sync_week()
     # analysis_d2()
     # filter_stk1()
-
-    result = []
-    for position in range(0, 6):
-        result += analysis_daily(position)
-    result_f = []
-    [(result_f.append(x)) for x in result if x not in result_f]
-    with open('tod.txt', mode='w') as f:
-        for item in result_f:
-            f.write(item)
-            f.write('\n')
+    #
+    # print(get_stock('sha'))
+    # result = []
+    # for position in range(0, 12):
+    #     result += analysis_daily(position)
+    # result_f = []
+    # [(result_f.append(x)) for x in result if x not in result_f]
+    # with open('tod.txt', mode='w') as f:
+    #     for item in result_f:
+    #         f.write(item)
+    #         f.write('\n')

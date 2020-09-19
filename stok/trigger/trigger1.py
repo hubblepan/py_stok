@@ -59,4 +59,8 @@ def t_all(kline, position):
     for amount in s_amount[0: 30]:
         if amount < 5000 * 10000:
             return False
+
+
+    all_vol = kline[:, 9].astype(np.float)
+    np.sort(all_vol)
     return True

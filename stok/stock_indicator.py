@@ -18,6 +18,9 @@ def sma_vol(kline, *timeperiod):
     vol = kline[:, 9].astype(np.float)
     return [_sma(vol, timeperiod=i) for i in timeperiod]
 
+def xxx(npClose):
+    pass
+
 
 def sma_week(kline, *timeperiod):
     """
