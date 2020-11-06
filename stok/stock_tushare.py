@@ -28,12 +28,12 @@ def get_stock(name):
             if stock.startswith('#') or stock == '':
                 continue
             stock = stock.strip('\n').split(',')
-            if 'st' in stock[1] or 'ST' in stock[1]:
+            if len(stock) > 1 and ('st' in stock[1] or 'ST' in stock[1]):
                 continue
-            # if stock[0].startswith('688'):
-            #     continue
-            # if stock[0].startswith('300'):
-            #     continue
+            if stock[0].startswith('688'):
+                continue
+           # if stock[0].startswith('300'):
+           #    continue
             l_stock_list.append(stock[0])
     return l_stock_list
 
@@ -177,39 +177,62 @@ def xxx():
 def hasFile(code):
     return os.path.exists('data/week/{}'.format(code + '.npy')) and os.path.exists('data/daily/{}'.format(code + '.npy'))
 
+def hasDayFile(code):
+    return os.path.exists('data/daily/{}'.format(code + '.npy'))
+
 
 def analysis_daily(position1):
     code_list = get_stock('sha') + get_stock('sza')
-    code_list = [code for code in code_list if hasFile(code)]
+    code_list = [code for code in code_list if hasDayFile(code)]
     # code_list = ['600036']
-    code_list = [code for code in code_list if week_filter.t_week_filter(np.load('data/week/{}'.format(code + '.npy'), allow_pickle=True), 0)]
+    # code_list = [code for code in code_list if week_filter.t_week_filter(np.load('data/week/{}'.format(code + '.npy'), allow_pickle=True), 0)]
     # code_list = ['600019']
     # code_list = filter_stk1()
     result1 = []
     for code in code_list:
         kline = np.load('data/daily/{}'.format(code + '.npy'), allow_pickle=True)
-        if trigger1.t_all(kline, position1):
+        if trigger1.t2(kline, position1):
             print(code)
             result1.append(code)
     return result1
 
 
+def buy_point():
+    result = []
+    code_list = get_stock('2020-11-04.txt') + get_stock('2020-11-03.txt') + get_stock('2020-11-02.txt')
+    code_list = [code for code in code_list if hasDayFile(code)]
+    for code in code_list:
+        kline = np.load('data/daily/{}'.format(code + '.npy'), allow_pickle=True)
+        s_open = kline[:, 2].astype(np.float)[:100]
+        s_high = kline[:, 3].astype(np.float)[:100]
+        s_low = kline[:, 4].astype(np.float)[:100]
+        s_close = kline[:, 5].astype(np.float)[:100]
+        s_pre_close = kline[:, 6].astype(np.float)[:100]
+        s_vol = kline[:, 9].astype(np.float)[:100]
+        s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
+        sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
+        sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
+        if s_close[0] < sma_close_10[0] or s_close[0] < sma_close_20[0]:
+            result.append(code)
+    return result
+
 if __name__ == '__main__':
     # test()
     # d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
     # analysis_d4(0)
-    sync_daily()
-    sync_week()
+    # sync_daily()
+    # sync_week()
     # analysis_d2()
     # filter_stk1()
     #
     # print(get_stock('sha'))
     # result = []
-    # for position in range(0, 12):
-    #     result += analysis_daily(position)
+    # for position in range(0, 15):
+    # result = analysis_daily(3)
+    result = buy_point()
     # result_f = []
     # [(result_f.append(x)) for x in result if x not in result_f]
-    # with open('tod.txt', mode='w') as f:
-    #     for item in result_f:
-    #         f.write(item)
-    #         f.write('\n')
+    with open('buy.txt', mode='w') as f:
+        for item in result:
+            f.write(item)
+            f.write('\n')

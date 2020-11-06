@@ -2,6 +2,30 @@
 
 import numpy as np
 from stok import stock_indicator as indicator
+def t2(kline, position):
+    # 日线条数要大于120条， 6个月
+        if kline.shape[0] < 120:
+            return False
+        s_open = kline[:, 2].astype(np.float)[:100]
+        s_high = kline[:, 3].astype(np.float)[:100]
+        s_low = kline[:, 4].astype(np.float)[:100]
+        s_close = kline[:, 5].astype(np.float)[:100]
+        s_pre_close = kline[:, 6].astype(np.float)[:100]
+        s_vol = kline[:, 9].astype(np.float)[:100]
+        s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
+        sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
+        sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
+        if s_close[position] > 40:
+            return False
+        if s_amount[position] < 1 * 100000000:
+            return False
+        s_entity = (s_close - s_open) / s_open * 100
+        if s_entity[position] < 3:
+            return False
+        if s_close[position] < s_pre_close[position]:
+            return False
+        return True
+
 
 
 def t_all(kline, position):

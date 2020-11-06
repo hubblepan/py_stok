@@ -24,24 +24,24 @@ class StockHQ(Model):
     symbol = CharField()
     code = CharField()
     name = CharField()
-    trade = CharField()
-    pricechange = CharField()
-    changepercent = CharField()
+    trade = CharField()  # 当前价
+    pricechange = CharField() # 涨跌额
+    changepercent = CharField() # 涨跌幅
     aov = CharField()
     buy = CharField()
     sell = CharField()
-    settlement = CharField()
-    open = CharField()
-    high = CharField()
-    low = CharField()
-    volume = IntegerField()
-    amount = IntegerField()
+    settlement = CharField() # 昨收
+    open = CharField() # 开
+    high = CharField() # 高
+    low = CharField() # 低
+    volume = IntegerField() # 量
+    amount = IntegerField() # 额
     ticktime = CharField()
     per = FloatField()
     pb = FloatField()
     mktcap = FloatField()
     nmc = FloatField()
-    turnoverratio = CharField()
+    turnoverratio = CharField() # 换手
     date = CharField()
 
     class Meta:
