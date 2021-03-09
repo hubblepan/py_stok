@@ -135,9 +135,9 @@ def load_stock_code_list(source):
 if __name__=='__main__':
     # #data to phone
     data_to_tdx_phone(zxg=load_stock_code_list('tod.txt'))
-    data_to_tdx_phone(D1=load_stock_code_list('2020-11-24.txt'))
-    # data_to_tdx_phone(D2=load_stock_code_list('2020-11-10.txt'))
-    # data_to_tdx_phone(D3=load_stock_code_list('2020-11-09.txt'))
-    # data_to_tdx_phone(D4=load_stock_code_list('2020-11-06.txt'))
+    data_to_tdx_phone(D1=load_stock_code_list('2021-01-05.txt'))
+    # data_to_tdx_phone(D2=load_stock_code_list('2020-12-22.txt'))
+    # data_to_tdx_phone(D3=load_stock_code_list('2020-12-21.txt'))
+    # data_to_tdx_phone(D4=load_stock_code_list('2020-12-18.txt'))
     # data_to_tdx_phone(D5=load_stock_code_list('2020-11-05.txt'))
     # data_to_tdx_phone(B1=load_stock_code_list('buy.txt'))

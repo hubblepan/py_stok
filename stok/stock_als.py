@@ -19,7 +19,7 @@ def filter_stock(stockHQ):
     s_zdf = float(stockHQ.changepercent)
     if s_open <= 0:
         return True
-    if s_close > 30:
+    if s_close > 40:
         return True
     if s_close < s_open:
         return True
@@ -57,7 +57,7 @@ def als_1(date='2019-12-24'):
 if __name__ == '__main__':
     # get_phone_data()
     # data_to_tdx_phone(zxg=als_1())
-    date = '2020-11-25'
+    date = '2020-12-14'
     l1 = als_1(date=date)
 
     with open('{}.txt'.format(date), mode='w') as f:

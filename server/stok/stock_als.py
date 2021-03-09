@@ -38,7 +38,7 @@ def als_1(date='2019-12-24'):
 if __name__ == '__main__':
     # get_phone_data()
     # data_to_tdx_phone(zxg=als_1())
-    l1 = als_1(date='2020-06-30')
+    l1 = als_1(date='2020-11-26')
 
     with open('tod.txt', mode='w') as f:
         for item in l1:

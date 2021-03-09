@@ -19,6 +19,11 @@ class StockTrack(Model):
     price_floor = FloatField()
     pass
 
+class StockBlock(Model):
+    symbol = CharField()
+    code = CharField()
+    sina_code = CharField()
+
 
 class StockHQ(Model):
     symbol = CharField()

@@ -30,7 +30,7 @@ def t2(kline, position):
 
 def t_all(kline, position):
     # 日线条数要大于120条， 6个月
-    if kline.shape[0] < 120:
+    if kline.shape[0] < 30:
         return False
     s_open = kline[:, 2].astype(np.float)[:100]
     s_high = kline[:, 3].astype(np.float)[:100]
@@ -43,7 +43,7 @@ def t_all(kline, position):
     sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
 
     # 成交额要大于1.5亿
-    if s_amount[position] < 1.5 * 100000000:
+    if s_amount[position] < 0.8 * 100000000:
         return False
 
     # 开盘价要小于于收盘价
@@ -60,7 +60,7 @@ def t_all(kline, position):
         return False
 
     # 不考虑没有波动的股票
-    if s_zf[position] < 4 or s_max[position] < 3:
+    if s_zf[position] < 4 or s_max[position] < 3 or s_entity[position] < 2.5:
         return False
 
     # 若上涨幅度没有超过前面两个k线的高度， 不考虑
@@ -70,8 +70,8 @@ def t_all(kline, position):
         return False
 
     # 突然爆量的涨幅不要
-    if s_vol[position] / s_vol[position + 1] > 3:
-        return False
+    # if s_vol[position] / s_vol[position + 1] > 3:
+    #     return False
 
     # 没有穿过均线的不要
     if s_low[position] > max(sma_close_10[position], sma_close_20[position]):
@@ -79,12 +79,8 @@ def t_all(kline, position):
     if s_high[position] < min(sma_close_10[position], sma_close_20[position]):
         return False
 
-    # 过去1个月内， 有成交额在5000万以内的不考虑
     for amount in s_amount[0: 30]:
-        if amount < 5000 * 10000:
+        if amount < 3000 * 10000:
             return False
 
-
-    all_vol = kline[:, 9].astype(np.float)
-    np.sort(all_vol)
     return True

@@ -48,8 +48,8 @@ def api(api_name, params):
 
 
 def today():
-    return '20201118'
-    # return datetime.now().strftime('%Y%m%d')
+    # return '20201118'
+    return datetime.now().strftime('%Y%m%d')
 
 
 def d_week(code):
@@ -116,6 +116,7 @@ def sync_daily():
     code_list = get_stock('sza')
     for code in code_list:
         try:
+            print(code)
             data = d_daily(code + '.SZ')
             np.save('data/daily/{}'.format(code), data)
             time.sleep(0.15)
@@ -192,7 +193,7 @@ def analysis_daily(position1):
     result1 = []
     for code in code_list:
         kline = np.load('data/daily/{}'.format(code + '.npy'), allow_pickle=True)
-        if trigger1.t2(kline, position1):
+        if trigger1.t_all(kline, position1):
             print(code)
             result1.append(code)
     return result1
@@ -229,11 +230,32 @@ if __name__ == '__main__':
     # print(get_stock('sha'))
     # result = []
     # for position in range(0, 15):
+    # result = analysis_daily(0)
+    # with open('tod.txt', mode='w') as f:
+    #     for item in result:
+    #         f.write(item)
+    #         f.write('\n')
+    #
+    # result = analysis_daily(1)
+    # with open('2021-01-05.txt', mode='w') as f:
+    #     for item in result:
+    #         f.write(item)
+    #         f.write('\n')
+    #
+    # result = analysis_daily(2)
+    # with open('2020-12-22.txt', mode='w') as f:
+    #     for item in result:
+    #         f.write(item)
+    #         f.write('\n')
+    #
     # result = analysis_daily(3)
-    # result = buy_point()
-    # # result_f = []
-    # # [(result_f.append(x)) for x in result if x not in result_f]
-    # with open('buy.txt', mode='w') as f:
+    # with open('2020-12-21.txt', mode='w') as f:
+    #     for item in result:
+    #         f.write(item)
+    #         f.write('\n')
+    #
+    # result = analysis_daily(4)
+    # with open('2020-12-18.txt', mode='w') as f:
     #     for item in result:
     #         f.write(item)
     #         f.write('\n')
