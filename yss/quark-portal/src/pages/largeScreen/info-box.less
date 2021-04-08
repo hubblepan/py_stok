@@ -1,0 +1,87 @@
+/*
+ * Component: Info Box
+ * @author: huangsq
+ * -------------------
+ */
+
+.infoBox {
+  display: flex;
+  width: 33%;
+
+  &:first-child:nth-last-child(4),
+  &:first-child:nth-last-child(4) ~ & {
+    width: 50%;
+    padding-left: 32px;
+  }
+
+  // box-shadow: @box-boxshadow;
+  // .border-radius(2px);
+  margin-bottom: 16px;
+  small {
+    font-size: 14px;
+  }
+  em {
+    font-style: normal;
+    margin-left: 8px;
+  }
+  .progress {
+    background: rgba(0, 0, 0, 0.2);
+    margin: 5px -10px 5px -10px;
+    height: 2px;
+    &,
+    & .progress-bar {
+      // .border-radius(0);
+    }
+    .progress-bar {
+      background: #fff;
+    }
+  }
+}
+
+.infoBoxIcon {
+  // .border-radius(2px; 0; 2px; 0);
+  height: 90px;
+  width: 90px;
+  text-align: center;
+  font-size: 45px;
+  line-height: 90px;
+  background: rgba(0, 0, 0, 0.2);
+  > img {
+    max-width: 100%;
+  }
+}
+
+.infoBoxContent {
+  flex: 1;
+  display: flex;
+  flex-flow: column wrap;
+  padding: 8px 16px;
+  line-height: 23px;
+}
+
+.infoBoxNumber {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px;
+  color: @text-white-darker;
+}
+
+.progressDescription,
+.infoBoxText {
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.infoBoxText {
+  text-transform: uppercase;
+}
+
+.infoBoxMore {
+}
+
+.progressDescription {
+  margin: 0;
+  font-size: 12px;
+}

@@ -1,0 +1,65 @@
+@import '~ant-design-draggable-modal/dist/index.css';
+// 引入react-grid-layout样式
+@import '~react-grid-layout/css/styles.css';
+@import '~react-resizable/css/styles.css';
+
+@import './base.less';
+
+@import './utilities/index.less';
+@import './core.less';
+@import './card.less';
+
+main {
+  &.ant-pro-basicLayout-content {
+    margin: 0;
+    .ant-pro-page-container {
+      margin: 0;
+    }
+  }
+}
+:global {
+  .ant-pro-menu-item {
+    & > span {
+      padding-left: 8px;
+    }
+  }
+  .ant-pro-sider ul.ant-menu-sub li.ant-menu-item .ant-pro-menu-item,
+  .ant-pro-sider ul.ant-menu-sub li.ant-menu-submenu .ant-pro-menu-item {
+    padding-left: 0;
+  }
+
+  .page-wrapper {
+    border: solid 16px transparent;
+    height: 100%;
+    overflow: auto;
+    background: #fff;
+    background-clip: padding-box;
+  }
+
+  // 表格禁止选中
+  .ant-table-row {
+    -webkit-user-select: none;
+  }
+
+  .ant-table-body {
+    overflow-y: auto !important;
+  }
+  .ant-input[disabled] {
+    color: #999999;
+    background-color: #fafafa;
+  }
+
+  .ant-checkbox-checked .ant-checkbox-inner {
+    background-color: #245eff !important;
+    border-color: #245eff !important;
+  }
+}
+
+.ant-table-tbody > tr > td {
+  border-right: 1px solid #f0f0f0 !important;
+}
+
+.ant-table-thead > tr > th {
+  white-space: nowrap !important;
+  font-weight: bold !important;
+}

@@ -1,0 +1,173 @@
+.lsdContainer {
+  color: @text-white-dark;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  background-image: linear-gradient(#1d202c, #10141d);
+
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .lsdWrapper {
+    width: 1600px;
+    height: 900px;
+    padding: 16px;
+
+    > header {
+      height: 60px;
+      line-height: 60px;
+      display: flex;
+      justify-content: space-between;
+
+      .title {
+        margin: 0;
+        color: @text-white-dark;
+        font-size: 32px;
+        font-weight: 600;
+        min-width: 360px;
+        position: relative;
+        text-align: center;
+        &::after {
+          position: absolute;
+          top: -16px;
+          left: 0;
+          content: '';
+          color: rgba(110, 122, 165, 0.2);
+          font-family: initial;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .toolbar {
+        width: 300px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+
+      :global {
+        .ant-picker {
+          background: #222744;
+          border: none;
+          box-shadow: 0px 0px 6px 0px rgba(80, 116, 226, 0.57) inset;
+          .ant-picker-suffix {
+            color: @text-white-dark;
+          }
+        }
+      }
+    }
+
+    .lsdMain {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-top: 16px;
+      .lsdContent {
+        flex: 1;
+        display: flex;
+        flex-flow: column nowrap;
+        .lsdContentWrapper {
+          flex: 1;
+          display: flex;
+          .lsdRight {
+            margin-left: 16px;
+            margin-bottom: 16px;
+            flex: 1;
+          }
+        }
+      }
+      .lsdMainChart {
+        position: relative;
+        display: flex;
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: '';
+          z-index: -1;
+          width: 100%;
+          height: 100%;
+          background: url('~@/assets/chart_bg.png') no-repeat center center;
+          background-size: contain;
+        }
+      }
+      .lsdBox {
+        margin-bottom: 16px;
+        height: 380px;
+        padding: 12px;
+        background: rgba(34, 39, 68, 0.5);
+        box-shadow: 0px 0px 6px 0px rgba(79, 93, 134, 0.3) inset;
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        &::before {
+          position: absolute;
+          top: 0;
+          left: 0;
+          content: '';
+          width: 100%;
+          height: 100%;
+          pointer-events: none;
+          // border: 2px solid transparent;
+          // width: 16px;
+          // height: 16px;
+          // border-top: 1px solid rgba(255, 255, 255, 0.7);
+          // border-left: 1px solid rgba(255, 255, 255, 0.7);
+          background: linear-gradient(to left, #5681ff, #5681ff) left top no-repeat,
+            linear-gradient(to bottom, #5681ff, #5681ff) left top no-repeat,
+            linear-gradient(to left, #5681ff, #5681ff) right top no-repeat,
+            linear-gradient(to bottom, #5681ff, #5681ff) right top no-repeat,
+            linear-gradient(to left, #5681ff, #5681ff) left bottom no-repeat,
+            linear-gradient(to bottom, #5681ff, #5681ff) left bottom no-repeat,
+            linear-gradient(to left, #5681ff, #5681ff) right bottom no-repeat,
+            linear-gradient(to left, #5681ff, #5681ff) right bottom no-repeat;
+          background-size: 1px 16px, 16px 1px, 1px 16px, 16px 1px;
+        }
+
+        .lsdHeader {
+          height: 32px;
+          padding-left: 12px;
+          color: @text-white-darker;
+        }
+        .lsdBody {
+          flex: 1;
+          display: flex;
+          flex-flow: row wrap;
+        }
+        .lsdSuccess {
+          color: #4182FA;
+        }
+        .lsdWarning {
+          color: #F6BD16;
+        }
+        .lsdException {
+          color: #FB6661;
+        }
+        .lsdUnexecuted {
+          color: #5D7092;
+        }
+        .lsdError {
+          color: #945FB9;
+        }
+      }
+      .lsdBoxDay {
+        height: 500px;
+      }
+      .lsdBoxWeek {
+      }
+      .lsdAside {
+        margin-left: 16px;
+        width: 476px;
+
+        .lsdBox1 {
+          width: 476px;
+          height: 300px;
+        }
+      }
+    }
+  }
+}

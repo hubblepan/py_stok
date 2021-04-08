@@ -1,0 +1,169 @@
+.main {
+  :global {
+    height: 100%;
+    display: flex;
+  }
+  .mainPro {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+    margin: 16px;
+    header {
+      :global {
+        font-size: 16px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        padding: 0 20px 0 20px;
+        white-space: nowrap;
+        .ant-btn {
+          padding: 8px;
+          border-style: none;
+          box-shadow: none;
+          font-size: 12px;
+        }
+      }
+
+      .left {
+        width: 96%;
+        height: 48px;
+        font-weight: 1000;
+        border-bottom: 1px solid #e8e8e8;
+        border-right: 1px solid #e8e8e8;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow: hidden;
+      }
+    }
+    content {
+      height: 100%;
+      width: 100%;
+      flex: 1;
+      aside {
+        :global {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          border-right: 5px solid #e8e8e8;
+          //输入框
+          .ant-input-affix-wrapper {
+            width: 13.125rem;
+            height: 2rem;
+            margin: 0 0.625rem 0 0;
+          }
+          //表格
+          .ant-table-wrapper {
+            width: 100%;
+            height: 100%;
+          }
+          .ant-table-tbody > tr > td {
+            padding: 0.625rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+          .ant-table-thead > tr > th {
+            padding: 0.625rem;
+            white-space: nowrap;
+          }
+
+          .ant-table {
+            border-bottom: 0.0625rem solid #e8e8e8;
+          }
+        }
+        header {
+          display: flex;
+          height: 3.75rem;
+          padding: 0.875rem;
+          align-items: center;
+        }
+        .asideContent {
+          flex: 1;
+        }
+        footer {
+          height: 3rem;
+          line-height: 3rem;
+          width: 100%;
+        }
+      }
+      content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        header {
+          :global {
+            width: 100%;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            white-space: nowrap;
+            .ant-btn {
+              margin: 5px;
+              font-size: 12px;
+            }
+            .ant-dropdown-trigger {
+              border-style: none;
+              box-shadow: none;
+            }
+          }
+          p {
+            display: inline-block;
+            margin: 0 5px 0 15px;
+            font-size: 12px;
+            overflow: hidden;
+          }
+          .headerLeft {
+            display: flex;
+            align-items: center;
+          }
+          .headerRight {
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+          }
+        }
+        .conContent {
+          :global {
+            flex: 1;
+            .ant-input-affix-wrapper {
+              width: 13.125rem;
+              height: 2rem;
+              margin: 0 0.625rem 0 1rem;
+            }
+            .ant-table-wrapper {
+              height: 100%;
+              width: 100%;
+            }
+            .ant-table-tbody > tr > td {
+              padding: 0.625rem;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+            .ant-table-thead > tr > th {
+              padding: 0.625rem;
+              white-space: nowrap;
+            }
+
+            .ant-table {
+              border-bottom: 0.0625rem solid #e8e8e8;
+            }
+          }
+        }
+        footer {
+          height: 3rem;
+          display: flex;
+          padding-right: 0.625rem;
+          justify-content: flex-end;
+          align-items: center;
+        }
+      }
+    }
+  }
+}

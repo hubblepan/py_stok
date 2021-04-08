@@ -1,0 +1,37 @@
+@import '~@/styles/base.less';
+
+.dropDownSelect {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  :global {
+    .ant-legacy-form-item .ant-legacy-form-item-control-wrapper {
+      width: 100%;
+    }
+  }
+}
+
+.dropDownSelect:hover {
+  background-color: #f3f6ff !important;
+}
+
+.hide {
+  display: none;
+}
+
+.dropDownSelect-footer {
+  border-top: 1px solid #f5f5f5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  padding: 6px 10px;
+  display: flex;
+}

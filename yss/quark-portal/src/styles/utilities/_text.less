@@ -1,0 +1,213 @@
+// stylelint-disable declaration-no-important
+
+// Headings
+// -------------------------
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  margin: 0;
+  padding: 0;
+  // font-family: @headings-font-family;
+  font-weight: @font-weight-bold;
+  // line-height: @headings-line-height;
+  color: @heading-color;
+
+  .small {
+    font-weight: normal;
+    // line-height: 1;
+    color: @text-color-secondary;
+  }
+}
+
+.h1 {
+  font-size: @font-size-h1;
+}
+.h2 {
+  font-size: @font-size-h2;
+}
+.h3 {
+  font-size: @font-size-h3;
+}
+.h4 {
+  font-size: @font-size-h4;
+}
+.h5 {
+  font-size: @font-size-h5;
+}
+.h6 {
+  font-size: @font-size-h6;
+}
+
+//
+// Text
+//
+.font-monospace {
+  font-family: @code-family !important;
+}
+
+// Alignment
+.text-wrap {
+  white-space: normal !important;
+}
+.text-nowrap {
+  white-space: nowrap !important;
+}
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Responsive alignment
+.text-start {
+  text-align: left !important;
+}
+.text-end {
+  text-align: right !important;
+}
+.text-center {
+  text-align: center !important;
+}
+
+// @each $breakpoint in map-keys($grid-breakpoints) {
+//   @include media-breakpoint-up($breakpoint) {
+//     $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+//     .text#{$infix}-left   { text-align: left !important; }
+//     .text#{$infix}-right  { text-align: right !important; }
+//     .text#{$infix}-center { text-align: center !important; }
+//   }
+// }
+
+// Transformation
+
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+// Weight and italics
+
+.fw-light {
+  font-weight: @font-weight-light !important;
+}
+.fw-lighter {
+  font-weight: @font-weight-lighter !important;
+}
+.fw-normal {
+  font-weight: @font-weight-normal !important;
+}
+.fw-bold {
+  font-weight: @font-weight-bold !important;
+}
+.fw-bolder {
+  font-weight: @font-weight-bolder !important;
+}
+.fst-italic {
+  font-style: italic !important;
+}
+
+// Contextual colors
+.text-primary {
+  .text-emphasis-variant(@text-primary, @primary-7);
+}
+.text-info {
+  .text-emphasis-variant(@text-info, @info-7);
+}
+.text-success {
+  .text-emphasis-variant(@text-success, @success-7);
+}
+.text-warning {
+  .text-emphasis-variant(@text-warning, @warning-7);
+}
+.text-danger {
+  .text-emphasis-variant(@text-danger, @error-7);
+}
+.text-body {
+  .text-emphasis-variant(@text-color, @black-9);
+}
+.text-secondary,
+.text-muted {
+  .text-emphasis-variant(@text-color-secondary, @black-7);
+}
+.text-white {
+  .text-emphasis-variant(@text-white, @white);
+}
+
+.text-balck-darker {
+  .text-emphasis-variant(@heading-color, @black-8);
+}
+.text-balck-light {
+  .text-emphasis-variant(@text-black-light, @white-5);
+}
+.text-black-lighter {
+  .text-emphasis-variant(@text-black-lighter, @white-7);
+}
+
+// @each $color, $value in $theme-colors {
+//   @include text-emphasis-variant(".text-#{$color}", $value, true);
+// }
+
+// Misc
+
+.text-decoration-none {
+  text-decoration: none !important;
+}
+
+.text-break {
+  word-break: break-word !important; // IE & < Edge 18
+  overflow-wrap: break-word !important;
+}
+
+// Reset
+.text-reset {
+  color: inherit !important;
+}
+
+.lead {
+  font-size: round((@font-size-base * 1.15));
+  font-weight: 500;
+}
+.small {
+  font-size: 0.85;
+  font-weight: 300;
+}
+.mark {
+  background-color: @mark-bg;
+}
+
+// Builds on `abbr`
+.initialism {
+  font-size: 0.85;
+  text-transform: uppercase;
+}
+
+// Blockquotes
+// .blockquote {
+//   margin-bottom: $blockquote-margin-y;
+//   @include font-size($blockquote-font-size);
+
+//   > :last-child {
+//     margin-bottom: 0;
+//   }
+// }
+
+// .blockquote-footer {
+//   margin-top: -$blockquote-margin-y;
+//   margin-bottom: $blockquote-margin-y;
+//   @include font-size($blockquote-footer-font-size);
+//   color: $blockquote-footer-color;
+
+//   &::before {
+//     content: "\2014\00A0"; // em dash, nbsp
+//   }
+// }

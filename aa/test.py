@@ -42,10 +42,10 @@ url_data_map = [
   },
 ],
 
-host = 'http://192.168.6.105:8083'
+host = 'http://222.240.48.26:18084'
 url = '/YSSUCOBRIDGE/comm'
-cookies_value = {'Hash': '102EA9E78ACC801AAF80D6F8F8E8B542',
-                 'UserName': 'lds'}
+cookies_value = {'JSESSIONID': '6C3FCC5EB0815408922C764C45FB7E24',
+                 'UserName': 'ht'}
 # data = '{"requestFunCode":null,"className":"IUserPostDataService","methodName":"getDataTreeByDataTypeAndUserid","paraAssemble":[{"paraType":"System.String","paraValue":"1"},{"paraType":"System.String","paraValue":"lds556"},{"paraType":"System.String","paraValue":""},{"paraType":null,"paraValue":"[]"},{"paraType":"HashMap","paraValue":"{\"dataClass\":\"UserPostData\",\"C_USER_CODE\":\"lds556\",\"C_DATA_TYPE\":\"1\",\"ARRAY_C_POST_CODE\":\"YssAutotestPostCode,ceshi111,jk,jkgl,[WBS]SYS,YWQNG,ZYNJCXG,1233,JJKJG,YWJBG1212,YWJBG,test123,test1,fzjggly,SJQXGLG,XTGLG,1,MQOP,YWJBG1,xyz,ZLJBG,demotest,ldspost2,lds_root_post,IT_POST1,fagwcsnew,GLY,csgwfa,fa_post,FA_POST,ZLYFHG3,ZLYFHG2,ZLYFHG1,glsqg,sqcsg,admin,SYSMGR,yyy,test,0007,qxcsg,yjini,ZLSPG,ZLJFG,ZLFSG,ZLFHG,QUERY,YWFHG\",\"N_CHECK_STATE\":\"SearchAll\"}"}],"serviceType":""}'
 # res = requests.post(url=host + url, params={'serviceId': 'osgi-fast'}, json=data, cookies=cookies_value, headers={'content-type': 'application/json', 'CLIENT': 'WEB'})
 # print(res.text)
@@ -56,7 +56,7 @@ def postJSON(url, params, jsonData):
     print(res.text)
 
 def postData(url, params, data):
-    res = requests.post(url=host + url, params=params, data=data, cookies=cookies_value, headers={'content-type': 'application/json', 'CLIENT': 'WEB'});
+    res = requests.post(url=host + url, params=params, data=data, cookies=cookies_value, headers={'content-type': 'application/json', 'CLIENT': 'WEB','UCOSESSIONID': '5ed985c1-9f11-4097-8893-537d4a49f63c', 'Authentication': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjX1VTRVJfQ09ERSI6Imh0IiwiZXhwIjoxNjE1OTcwNDg1fQ.yP6Qskl8ZEXVR5daqVhrq141QvqislSiSwo-gS5vhwo'});
     print(res.text)
 
 
@@ -158,10 +158,11 @@ def updateUserPostDataCond():
     result = ''
 
 def queryByConditionxx():
-    url = '/YSSUCOBRIDGE/ws/com/yss/right/controller/IFastDataRightServiceController/queryDataByType'
+    url = '/osgi-fast/YSSUCOBRIDGE/ws/com/yss/platform/support/dataservice/controller/IAuthCorpOrgDataTreeServiceController/getAuthOrgAndCorpOrgTree'
     params = {'serviceId': 'osgi-fast'}
-    data = '1'
+    data = 'Organization'
     postData(url, params, data)
+    result = '{"code":"success","data":"1","message":"","success":true}'
 
 if __name__=='__main__':
     # queryByConditionxx()

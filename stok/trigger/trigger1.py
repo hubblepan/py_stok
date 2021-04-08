@@ -41,7 +41,6 @@ def t_all(kline, position):
     s_amount = (kline[:, 10].astype(np.float) * 1000)[:100]
     sma_vol_5, sma_vol_10, sma_vol_20 = indicator.sma_vol(kline, 5, 10, 20)
     sma_close_5, sma_close_10, sma_close_20 = indicator.sma(kline, 5, 10, 20)
-
     # 成交额要大于1.5亿
     if s_amount[position] < 0.8 * 100000000:
         return False
@@ -64,14 +63,18 @@ def t_all(kline, position):
         return False
 
     # 若上涨幅度没有超过前面两个k线的高度， 不考虑
-    if s_high[position] < np.max(s_open[position + 1: position + 3]):
-        return False
-    if s_high[position] < np.max(s_close[position + 1: position + 3]):
-        return False
+    # if s_high[position] < np.max(s_open[position + 1: position + 3]):
+    #     return False
+    # if s_high[position] < np.max(s_close[position + 1: position + 3]):
+    #     return False
 
     # 突然爆量的涨幅不要
-    # if s_vol[position] / s_vol[position + 1] > 3:
-    #     return False
+    if s_vol[position] / s_vol[position + 1] > 2.5:
+        return False
+
+    if s_vol[position] >= np.max(s_vol[position: position + 15]):
+        return False
+
 
     # 没有穿过均线的不要
     if s_low[position] > max(sma_close_10[position], sma_close_20[position]):

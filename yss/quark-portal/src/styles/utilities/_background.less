@@ -1,0 +1,66 @@
+// stylelint-disable declaration-no-important
+.bg-primary {
+  .bg-variant(@bg-primary, @primary-3);
+}
+.bg-info {
+  .bg-variant(@bg-info, @info-3);
+}
+.bg-success {
+  .bg-variant(@bg-success, @success-3);
+}
+.bg-warning {
+  .bg-variant(@bg-warning, @warning-3);
+}
+.bg-error,
+.bg-danger {
+  .bg-variant(@bg-error, @error-3);
+}
+
+.bg-black {
+  .bg-variant(@bg-black, @black);
+}
+.bg-black-dark {
+  .bg-variant(@bg-black-dark, @bg-black-darker);
+}
+.bg-black-darker {
+  .bg-variant(@bg-black-darker, @bg-black);
+}
+.bg-black-light {
+  .bg-variant(@bg-black-light, @black-5);
+}
+.bg-black-lighter {
+  .bg-variant(@bg-black-lighter, @bg-black-light);
+}
+.bg-white {
+  .bg-variant(@bg-white, @white);
+}
+.bg-white-dark {
+  .bg-variant(@bg-white-dark, @bg-white-darker);
+}
+.bg-white-darker {
+  .bg-variant(@bg-white-darker, @bg-white);
+}
+.bg-white-light {
+  .bg-variant(@bg-white-light, @white-5);
+}
+.bg-white-lighter {
+  .bg-variant(@bg-white-lighter, @bg-white-light);
+}
+
+// @each $color, $value in $theme-colors {
+//   @include bg-variant(".bg-#{$color}", $value, true);
+// }
+
+// @if $enable-gradients {
+//   @each $color, $value in $theme-colors {
+//     @include bg-gradient-variant(".bg-gradient-#{$color}", $value, true);
+//   }
+// }
+
+.bg-transparent {
+  background-color: transparent !important;
+}
+
+[class^='bg-'].disabled {
+  opacity: 0.65;
+}

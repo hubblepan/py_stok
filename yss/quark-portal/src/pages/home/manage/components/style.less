@@ -1,0 +1,162 @@
+@import '~@/styles/base.less';
+.accountTabs{
+  :global(.ant-tabs-nav){
+    padding-left: 24px;
+  }
+}
+.statistic{
+  position: relative; // 用于伪元素定位
+  width:214px;
+  //border-right: 1px solid #E8E8E8;
+  .amount{
+    font-size: @font-size-h2;
+    margin-top: 6px;
+  }
+  &::after{
+    content:"";
+    width:1px;
+    height:80px;
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    background:#E8E8E8;
+  }
+}
+
+.combination{
+  width: 166px;
+  //margin-left: 74px;
+  .description{
+    float: right;
+    display:inline-block;
+    margin-left:18px;
+    .amount,.percentage{
+      margin-top: 5px;
+    }
+    .amount{
+      font-size: @font-size-h4;
+    }
+    .percentage{
+      color: @text-color-secondary;
+      font-size: @font-size-sm;
+    }
+  }
+}
+
+.combChart{
+  position: relative;
+  display:flex;
+  justify-content:space-around;
+  &::after{
+    content: '';
+    background:#E8E8E8;
+    position: absolute;
+    width:1px;
+    height: 122px;
+    top: 12%;
+    left: 50%;
+  }
+  .combEcharts{
+    //width: 337px;
+    //height: 71px;
+    //background: linear-gradient(180deg,rgba(105,192,255,0.3), rgba(105,192,255,0.01));
+    display: flex;
+    padding-right: 36px;
+    .description{
+      padding-top: 32px;
+      .amount{
+        font-size:@font-size-h4;
+        margin-top: 16px;
+      }
+      .percentage{
+        margin-top: 8px;
+        color: @text-color-secondary;
+        font-size: @font-size-sm;
+      }
+    }
+  }
+}
+.combinationProgress{
+  width:288px;
+  padding-bottom: 25px;
+  .amount{
+    margin-top: 13px;
+    font-size: @font-size-h2;
+  }
+  .percentage{
+    overflow: hidden;
+    color: @text-color-secondary;
+    font-size: @font-size-sm;
+    margin-top: 8px;
+    .left{
+      float: left;
+      span:last-child{
+        margin-left: 8px;
+      }
+    }
+    .right{
+      float: right;
+      display: flex; // 为了span的对齐
+    }
+  }
+  .progress{
+    :global(.ant-progress-inner){
+      border-radius: 0;
+    }
+  }
+}
+.trendCard{
+  height: 100%;
+  :global{
+    .ant-card-body{
+      height: calc(100% - 65px); // 减去头部高度
+    }
+  }
+}
+
+.rankItem{
+  height:45px;
+  display:flex;
+  .badgeBottom{
+    :global{
+      .ant-badge-count {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        font-size: @font-size-h6;
+        background: transparent;
+        color:rgba(0,0,0,0.6);
+      }
+    }
+  }
+  .badgeTop{
+    :global{
+      .ant-badge-count {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        font-size: @font-size-h6;
+        background: #3366FF;
+        color:#fff;
+      }
+    }
+  }
+
+  .name{
+    height: 22px;
+    width: 140px;
+    margin-left: 12px;
+    // 超出显示点点点
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .progress{
+    width: 130px;
+    margin-left: 20px;
+  }
+
+}
+
+
+

@@ -1,0 +1,23 @@
+// Typography
+
+.text-emphasis-variant(@color, @darkColor) {
+  &,
+  & a {
+    color: @color;
+  }
+  a&:hover,
+  a:hover {
+    color: fadeout(@color, 10%);
+  }
+  // a&:focus {
+  //   color: @color;
+  // }
+  a&:active,
+  a:active {
+    color: fadein(@color, 10%);
+  }
+}
+
+.font-size(@font-size) {
+  font-size: @font-size;
+}

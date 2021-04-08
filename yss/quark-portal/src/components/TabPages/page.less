@@ -1,0 +1,42 @@
+.tab_style() {
+  .ant-tabs-card-bar {
+    .ant-tabs-nav-container {
+      height: 39px;
+      font-size: 13px;
+    }
+    .ant-tabs-tab {
+      padding-top: 0;
+      padding-bottom: 0;
+      line-height: 40px;
+      border-top: 0;
+      border-radius: 0;
+      .anticon-close {
+        display: none;
+      }
+    }
+    #tab-\/ {
+      display: none;
+    }
+    .ant-tabs-tab-active {
+      padding-bottom: 0;
+      background-color: rgba(0, 0, 0, 0.1);
+      .anticon-close {
+        display: inline-block;
+      }
+    }
+    .ant-tabs-tab:hover {
+      padding-right: 20px;
+      padding-left: 20px;
+      .anticon-close {
+        display: inline-block;
+        color: #333;
+      }
+    }
+  }
+}
+
+.content_tab {
+  :global {
+    .tab_style() !important;
+  }
+}

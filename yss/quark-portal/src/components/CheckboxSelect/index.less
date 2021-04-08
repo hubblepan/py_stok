@@ -1,0 +1,118 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+// --------------------------------------- 组件样式开始 ---------------------------------
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+.checkbox-select {
+  margin: 0px auto;
+  top: 100px;
+  float: right;
+  max-width: 260px;
+  position: relative;
+  .cs__input-wrap {
+      position: relative;
+      cursor: pointer;
+      .cs__input-text {
+          width: 50px;
+          padding: 0 30px 0 10px;
+          height: 34px;
+          line-height: 34px;
+          border: 1px solid #ddd;
+          user-select: none;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+      }
+      .cs__input-icon {
+          position: absolute;
+          display: block;
+          right: 1px;
+          top: 1px;
+          height: 32px;
+          width: 30px;
+          &::after {
+              content: ' ';
+              display: block;
+              width: 0;
+              height: 0;
+              border-left: 5px solid transparent;
+              border-right: 5px solid transparent;
+              border-top: 8px solid #555;
+              position: absolute;
+              left: 50%;
+              top: 50%;
+              transform: translate(-50%, -50%);
+          }
+      }
+  }
+  .cs__tool {
+      display: none;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 34px;
+      background-color: #fff;
+      border: 1px solid #f1f1ff;
+      animation: fadeIn 0.5s 0s;
+      .cs__checkbox-list {
+          margin-bottom: 0;
+          max-height: 200px;
+          overflow: hidden auto;
+          label {
+              padding: 5px 10px;
+              &:hover {
+                  background-color: #f1f1f1;
+              }
+          }
+          .ant-checkbox-wrapper {
+              width: 100%;
+          }
+          .empty {
+              text-align: center;
+              min-height: 100px;
+              line-height: 100px;
+              font-size: 12px;
+              color: #999;
+          }
+      }
+
+      .ant-checkbox-group {
+          padding-top: 5px;
+          width: 100%;
+      }
+      .cs__button {
+          width: 100%;
+          border-top: 1px solid #f1f1f1;
+          padding: 5px 10px;
+          display: inline-block;
+          label {
+              font-size: 12px;
+              user-select: none;
+              color: #555;
+          }
+          button {
+              margin: 0 5px 5px 0;
+              float: left;
+          }
+          .ant-btn-primary {
+              margin-left: 0;
+          }
+      }
+  }
+}
+.checkbox-select-active {
+  .cs__tool {
+      display: block;
+  }
+}

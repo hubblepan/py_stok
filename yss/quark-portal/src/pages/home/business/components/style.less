@@ -1,0 +1,132 @@
+@import '~@/styles/base.less';
+
+.percentage {
+  color: @text-color-secondary;
+  font-size: @font-size-sm;
+}
+.badge {
+  :global {
+    padding: 0px !important;
+    margin: 0px !important;
+    .ant-badge-status-text {
+      margin: 0px !important;
+    }
+  }
+}
+
+.calendar {
+  min-width: 300px;
+  :global {
+    padding: 16px 16px;
+    .ant-picker-cell .ant-picker-cell-in-view {
+      top: 11px;
+    }
+  }
+  .calendarTitle {
+    display: flex;
+    justify-content: space-between;
+  }
+  .outLine {
+    width: 24px;
+    height: 24px;
+    background-color: #eeeeee;
+    line-height: 24px;
+  }
+  .year {
+    padding: 0 0 0 10px;
+  }
+  .month {
+    padding: 0 10px;
+  }
+
+  .circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #3366ff;
+    position: absolute;
+    top: 50%;
+    left: -7%;
+  }
+  .deposit {
+    :global {
+      min-width: 280px;
+      border: 1px solid #e8e8e8;
+      padding: 10px 16px;
+      margin-top: 16px;
+      .ant-btn {
+        padding: 0 !important;
+        font-size: 12px;
+        color: #3366ff;
+        border: 1px solid #3366ff;
+        height: 20px;
+      }
+    }
+
+    .title {
+      display: flex;
+      justify-content: space-between;
+      line-height: 24px;
+    }
+    .form {
+      display: flex;
+      line-height: 24px;
+      justify-content: space-between;
+      .formItem {
+        color: rgba(0, 0, 0, 0.4);
+      }
+      .formLabel {
+        color: rgba(0, 0, 0, 0.4);
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+.listHeader {
+  :global {
+    .ant-list-header {
+      background-color: #e8e8e8;
+    }
+    .ant-list-item {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
+.monitorRank {
+  :global {
+    padding: 16px 20px;
+  }
+  .combintionAssembly {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .monitorTitle {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8e8e8;
+  }
+  .today {
+    font-size: 14px;
+    color: #999999;
+    font-weight: normal;
+    padding-left: 8px;
+  }
+  .echartsPie {
+    padding: 10px 10px 10px 20px;
+  }
+  .listRight {
+    padding: 10px 10px 10px 20px;
+  }
+}

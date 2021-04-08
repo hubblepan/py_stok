@@ -222,7 +222,7 @@ if __name__ == '__main__':
     # test()
     # d4_parse_d1(np.load('data/daily/{}'.format('000001' + '.npy')), 0)
     # analysis_d4(0)
-    sync_daily()
+    # sync_daily()
     # sync_week()
     # analysis_d2()
     # filter_stk1()
@@ -230,24 +230,24 @@ if __name__ == '__main__':
     # print(get_stock('sha'))
     # result = []
     # for position in range(0, 15):
-    # result = analysis_daily(0)
-    # with open('tod.txt', mode='w') as f:
-    #     for item in result:
-    #         f.write(item)
-    #         f.write('\n')
+    result = analysis_daily(0)
+    with open('tod.txt', mode='w') as f:
+        for item in result:
+            f.write(item)
+            f.write('\n')
     #
     # result = analysis_daily(1)
-    # with open('2021-01-05.txt', mode='w') as f:
+    # with open('2021-03-18.txt', mode='w') as f:
     #     for item in result:
     #         f.write(item)
     #         f.write('\n')
     #
     # result = analysis_daily(2)
-    # with open('2020-12-22.txt', mode='w') as f:
+    # with open('2020-03-17.txt', mode='w') as f:
     #     for item in result:
     #         f.write(item)
     #         f.write('\n')
-    #
+
     # result = analysis_daily(3)
     # with open('2020-12-21.txt', mode='w') as f:
     #     for item in result:

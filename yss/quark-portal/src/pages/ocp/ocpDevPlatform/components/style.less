@@ -1,0 +1,149 @@
+.editDetailModal {
+  [data-theme='compact'] .site-collapse-custom-collapse .site-collapse-custom-panel,
+  .site-collapse-custom-collapse .site-collapse-custom-panel {
+    background: #ffffff;
+    border-radius: 2px;
+    margin-bottom: 24px;
+    border: 0px;
+    overflow: hidden;
+  }
+  .ant-collapse {
+    background: #ffffff;
+  }
+}
+
+.detectionModal {
+  .leftSteps {
+    // 分割线：伪类
+    &::after {
+      content: '';
+      width: 1px;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      background: #e8e8e8;
+    }
+  }
+}
+
+@fix-table-height: 505px;
+.targetTable {
+  .searchFormItem {
+    margin-bottom: 0px;
+    :global {
+      .ant-form-item-control-input-content {
+        padding: 13px 24px 10px 0px;
+        display: flex;
+      }
+    }
+    .searchInput {
+      margin-left: auto;
+      width: 240px;
+    }
+  }
+  .detectForm {
+    padding: 13px 0px 10px 15px;
+    :global {
+      .ant-form-item-with-help {
+        margin-bottom: 0px !important;
+      }
+    }
+  }
+  :global {
+    .ant-pagination {
+      padding-right: 10px;
+    }
+    .ant-table-wrapper {
+      // 固定高度
+      // scroll.y+55+64
+      height: @fix-table-height;
+      .ant-table {
+        // scroll.y+55
+        //height: 355px;
+        // 这里是table-wrapper的高度减去下方"分页器"的高度
+        height: calc(@fix-table-height - 56px);
+        //height: calc(100% - 64px);
+        .ant-table-container {
+          height: 100%;
+        }
+      }
+    }
+  }
+}
+
+.textwrap {
+  white-space: normal !important;
+  //overflow: visible;
+  //text-ellipsis: unset;
+}
+.loadingContainer {
+  position: relative;
+  // 同ant-table-wrapper高度
+  height: @fix-table-height;
+  //height: 419px;
+  .loadingProgress {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    .text {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+.tableStyle {
+  :global {
+    width: 100%;
+    .ant-table-tbody > tr > td {
+      padding: 9px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .ant-table-thead > tr > th {
+      padding: 9px;
+      white-space: nowrap;
+      font-weight: bold;
+    }
+  }
+}
+
+.diyProgressContainer {
+  background: #e4e4e4;
+  width: 100%;
+  height: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+}
+
+.diyProgressProgress {
+  background: -webkit-repeating-linear-gradient(
+    -45deg,
+    #2d5bff 0px,
+    #2d5bff 5px,
+    #6186ff 10px,
+    #6186ff 20px
+  );
+  background-size: 28px 28px;
+  height: 16px;
+  border-radius: 8px;
+  animation: move 1s linear infinite;
+}
+@keyframes move {
+  0% {
+  }
+  100% {
+    background-position: 56px 0;
+  }
+}
+
+.clickRowStyle {
+  :global {
+    background: rgba(41, 105, 255, 0.05);
+  }
+}

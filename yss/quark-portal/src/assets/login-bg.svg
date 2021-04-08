@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="771px" height="771px" viewBox="0 0 771 771" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 5</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="771" height="771"></rect>
+        <radialGradient cx="50%" cy="47.8278707%" fx="50%" fy="47.8278707%" r="60.0296948%" id="radialGradient-3">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="63.3888113%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.301682692" offset="81.1360464%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="登陆（已交付）" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="登陆备份" transform="translate(-333.000000, -46.000000)">
+            <g id="编组-5" transform="translate(333.000000, 46.000000)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="蒙版" fill="#D8D8D8" opacity="0" xlink:href="#path-1"></use>
+                <g mask="url(#mask-2)">
+                    <g transform="translate(-65.000000, -68.000000)">
+                        <circle id="椭圆形" fill="url(#radialGradient-3)" cx="446" cy="449" r="381"></circle>
+                        <g id="编组-3" stroke-width="1" fill="none">
+                            <ellipse id="椭圆形" stroke="#3366FF" stroke-width="0.81" cx="459.233487" cy="439.707808" rx="331.08396" ry="330.679706"></ellipse>
+                            <ellipse id="椭圆形" stroke="#3366FF" stroke-width="0.81" transform="translate(461.116448, 451.254877) rotate(15.000000) translate(-461.116448, -451.254877) " cx="461.116448" cy="451.254877" rx="294.655773" ry="347.995091"></ellipse>
+                            <ellipse id="椭圆形" stroke="#3366FF" stroke-width="0.81" transform="translate(439.748520, 449.048274) rotate(32.000000) translate(-439.748520, -449.048274) " cx="439.74852" cy="449.048274" rx="306.733705" ry="336.428327"></ellipse>
+                            <path d="M438.69287,150.535296 C535.669402,147.064074 624.590203,176.882751 689.958352,227.90623 C755.297547,278.907108 797.10384,351.096256 799.873497,432.39318 C802.643169,513.690538 765.851168,588.693389 704.14163,644.242177 C642.404872,699.815467 555.729709,735.919714 458.752852,739.390947 C361.776321,742.862168 272.855519,713.043491 207.48737,662.020012 C142.148176,611.019134 100.341883,538.829986 97.5722251,457.533063 C94.8025528,376.235705 131.594554,301.232853 193.304092,245.684065 C255.040851,190.110775 341.716013,154.006529 438.69287,150.535296 Z" id="椭圆形" stroke="#3366FF" stroke-width="0.81"></path>
+                            <path d="M206.347688,189.046915 C262.45854,131.524469 341.056842,107.953883 422.767581,116.330519 C504.520856,124.711515 589.39,165.069714 658.002241,235.40805 C726.617668,305.74965 765.985923,392.758469 774.161594,476.571949 C782.333284,560.344622 759.340957,640.926815 703.225679,698.453798 C647.114827,755.976244 568.516525,779.54683 486.805786,771.170195 C405.052511,762.789199 320.183367,722.430999 251.571126,652.092663 C182.9557,581.751063 143.587444,494.742244 135.411773,410.928764 C127.240083,327.156091 150.23241,246.573898 206.347688,189.046915 Z" id="椭圆形" stroke="#3366FF" stroke-width="0.81"></path>
+                            <circle id="椭圆形备份-7" fill="#3366FF" cx="358" cy="142" r="8"></circle>
+                            <circle id="椭圆形备份" fill="#3366FF" cx="708.275736" cy="243.66549" r="6.4893515"></circle>
+                            <circle id="椭圆形备份-2" fill="#3366FF" cx="623" cy="729" r="6"></circle>
+                            <circle id="椭圆形备份-3" fill="#3366FF" cx="216" cy="669" r="6"></circle>
+                            <circle id="椭圆形备份-4" fill="#3366FF" cx="131.489351" cy="398.489352" r="6.4893515"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
